@@ -13,12 +13,19 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     // storyboardのtableviewを宣言
     @IBOutlet weak var tableView: UITableView!
     
+    var addBtn :UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.  
         // tableviewの紐付け
         tableView.delegate = self
         tableView.dataSource = self
+        
+        self.title = "List"
+        // addBtnを設置
+        addBtn = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onClick")
+        self.navigationItem.rightBarButtonItem = addBtn
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,7 +79,14 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
             self.navigationController?.pushViewController(nextViewController, animated: true)
             
         }
+    }
+    
+    // addBtnをタップしたときのアクション
+    func onClick() {
+        var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_edit", bundle: NSBundle.mainBundle())
+        var nextViewController: ViewController_Edit = storyboard.instantiateInitialViewController() as! ViewController_Edit
         
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
 
