@@ -17,6 +17,10 @@
 		4D2B406B1BA9528E00297939 /* Storyboard_etsuran.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2B406A1BA9528E00297939 /* Storyboard_etsuran.storyboard */; };
 		4D2B406D1BA952A400297939 /* Storyboard_edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2B406C1BA952A400297939 /* Storyboard_edit.storyboard */; };
 		4D2B406F1BA952B900297939 /* Storyboard_satsuei.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2B406E1BA952B900297939 /* Storyboard_satsuei.storyboard */; };
+		4DB291351BBB7EB8006433D1 /* ViewController_Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB291341BBB7EB8006433D1 /* ViewController_Main.swift */; };
+		4DB291371BBB82CE006433D1 /* ViewController_satsuei.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB291361BBB82CE006433D1 /* ViewController_satsuei.swift */; };
+		4DB291391BBB82D9006433D1 /* ViewController_etsuran.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB291381BBB82D9006433D1 /* ViewController_etsuran.swift */; };
+		4DB2913B1BBB82E3006433D1 /* ViewController_edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		4D2B406A1BA9528E00297939 /* Storyboard_etsuran.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_etsuran.storyboard; sourceTree = "<group>"; };
 		4D2B406C1BA952A400297939 /* Storyboard_edit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_edit.storyboard; sourceTree = "<group>"; };
 		4D2B406E1BA952B900297939 /* Storyboard_satsuei.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_satsuei.storyboard; sourceTree = "<group>"; };
+		4DB291341BBB7EB8006433D1 /* ViewController_Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_Main.swift; sourceTree = "<group>"; };
+		4DB291361BBB82CE006433D1 /* ViewController_satsuei.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_satsuei.swift; sourceTree = "<group>"; };
+		4DB291381BBB82D9006433D1 /* ViewController_etsuran.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_etsuran.swift; sourceTree = "<group>"; };
+		4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_edit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +95,10 @@
 			children = (
 				4D2B40481BA951F100297939 /* AppDelegate.swift */,
 				4D2B404A1BA951F100297939 /* ViewController.swift */,
+				4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */,
+				4DB291381BBB82D9006433D1 /* ViewController_etsuran.swift */,
+				4DB291361BBB82CE006433D1 /* ViewController_satsuei.swift */,
+				4DB291341BBB7EB8006433D1 /* ViewController_Main.swift */,
 				4D2B404C1BA951F100297939 /* Main.storyboard */,
 				4D2B40681BA9526F00297939 /* Storyboard_matching.storyboard */,
 				4D2B406A1BA9528E00297939 /* Storyboard_etsuran.storyboard */,
@@ -229,7 +241,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D2B404B1BA951F100297939 /* ViewController.swift in Sources */,
+				4DB291351BBB7EB8006433D1 /* ViewController_Main.swift in Sources */,
+				4DB291391BBB82D9006433D1 /* ViewController_etsuran.swift in Sources */,
 				4D2B40491BA951F100297939 /* AppDelegate.swift in Sources */,
+				4DB2913B1BBB82E3006433D1 /* ViewController_edit.swift in Sources */,
+				4DB291371BBB82CE006433D1 /* ViewController_satsuei.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +439,7 @@
 				4D2B40641BA951F100297939 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D2B40651BA951F100297939 /* Build configuration list for PBXNativeTarget "ImagePassTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +448,7 @@
 				4D2B40671BA951F100297939 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
