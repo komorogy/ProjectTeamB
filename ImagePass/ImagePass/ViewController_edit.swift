@@ -8,7 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+/////////////////////////////////////////////////////////////////////////
+// ViewController_edit.swift にて定義している関数．
+// MoveView(ViewName:String) : 画面遷移する関数
+/////////////////////////////////////////////////////////////////////////
+
+
+// ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
+private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
+
+class ViewController_edit: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,3 +32,14 @@ class ViewController: UIViewController {
 
 }
 
+//MoveView(ViewName:String) : 画面遷移する関数
+private func MoveView(ViewName:String){
+    
+    switch ViewName {
+    case "edit"://編集画面へ飛ぶ
+        break ;
+    default ://エラー処理どうする？
+        break ;
+    }
+    
+}
