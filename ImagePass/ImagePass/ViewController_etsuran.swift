@@ -21,7 +21,7 @@ import UIKit
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 
 // AppDelegateのインスタンス化
-private let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate ;
+private let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
 
 class ViewController_etsuran: UIViewController {
 
