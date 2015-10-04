@@ -21,6 +21,7 @@
 		4DB291371BBB82CE006433D1 /* ViewController_satsuei.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB291361BBB82CE006433D1 /* ViewController_satsuei.swift */; };
 		4DB291391BBB82D9006433D1 /* ViewController_etsuran.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB291381BBB82D9006433D1 /* ViewController_etsuran.swift */; };
 		4DB2913B1BBB82E3006433D1 /* ViewController_edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */; };
+		C5975F331BC12ABC0003CA6C /* ViewController_matching.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5975F321BC12ABC0003CA6C /* ViewController_matching.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		4DB291361BBB82CE006433D1 /* ViewController_satsuei.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_satsuei.swift; sourceTree = "<group>"; };
 		4DB291381BBB82D9006433D1 /* ViewController_etsuran.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_etsuran.swift; sourceTree = "<group>"; };
 		4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_edit.swift; sourceTree = "<group>"; };
+		C5975F321BC12ABC0003CA6C /* ViewController_matching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_matching.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */,
 				4DB291381BBB82D9006433D1 /* ViewController_etsuran.swift */,
 				4DB291361BBB82CE006433D1 /* ViewController_satsuei.swift */,
+				C5975F321BC12ABC0003CA6C /* ViewController_matching.swift */,
 				4DB291341BBB7EB8006433D1 /* ViewController_Main.swift */,
 				4D2B404C1BA951F100297939 /* Main.storyboard */,
 				4D2B40681BA9526F00297939 /* Storyboard_matching.storyboard */,
@@ -244,6 +247,7 @@
 				4DB291351BBB7EB8006433D1 /* ViewController_Main.swift in Sources */,
 				4DB291391BBB82D9006433D1 /* ViewController_etsuran.swift in Sources */,
 				4D2B40491BA951F100297939 /* AppDelegate.swift in Sources */,
+				C5975F331BC12ABC0003CA6C /* ViewController_matching.swift in Sources */,
 				4DB2913B1BBB82E3006433D1 /* ViewController_edit.swift in Sources */,
 				4DB291371BBB82CE006433D1 /* ViewController_satsuei.swift in Sources */,
 			);
