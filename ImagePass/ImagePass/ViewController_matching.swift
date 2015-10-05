@@ -43,14 +43,14 @@ class ViewController_matching: UIViewController {
         switch ViewName {
         case "etsuran"://閲覧画面へ飛ぶ
             var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran
+            var nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as ViewController_etsuran ;
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true);
             break ;
             //case "etsuran"://一覧画面へ飛ぶ
         default://
             var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_Main", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as! ViewController_Main
+            var nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as ViewController_Main ;
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true);
             

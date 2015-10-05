@@ -26,24 +26,33 @@ class ViewController_satsuei: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    
+    //MoveView(ViewName:String) : 画面遷移する関数
+    private func MoveView(ViewName:String){
+        
+        switch ViewName {
+        case "Main"://一覧画面へ飛ぶ
+            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_Main", bundle: NSBundle.mainBundle())
+            var nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as ViewController_Main ;
+            // 画面遷移
+            self.navigationController?.pushViewController(nextViewController, animated: true);
+        case "edit"://閲覧画面へ飛ぶ
+            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
+            var nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as ViewController_etsuran ;
+            // 画面遷移
+            self.navigationController?.pushViewController(nextViewController, animated: true);
+        default ://エラー処理どうする？
+            break ;
+        }
+        
+    }
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
-//MoveView(ViewName:String) : 画面遷移する関数
-private func MoveView(ViewName:String){
-    
-    switch ViewName {
-    case "Main"://一覧画面へ飛ぶ
-        break ;
-    case "edit"://編集画面へ飛ぶ
-        break ;
-    default ://エラー処理どうする？
-        break ;
-    }
-    
-}
+//ボタンアクションはここに書く
