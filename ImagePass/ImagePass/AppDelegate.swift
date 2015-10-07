@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // 初期画面のstoryboard(Main)とその中のinitialに設定されているViewControllerを取得
-        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var mainViewController: UIViewController = storyboard.instantiateInitialViewController() as UIViewController
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let mainViewController: UIViewController = storyboard.instantiateInitialViewController() as UIViewController! ;
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.navigationController = UINavigationController(rootViewController: mainViewController)

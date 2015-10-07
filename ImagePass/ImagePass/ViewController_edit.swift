@@ -28,8 +28,8 @@ class ViewController_edit: UIViewController {
     //ボタンとかの宣言
     @IBOutlet weak var SaveButton: UIButton!
     @IBOutlet weak var BackButton: UIButton!
-    @IBOutlet weak var Title: UITextField!
     @IBOutlet weak var TextEditer: UITextView!
+    @IBOutlet weak var myTitle: UITextField!
     
     //ボタンアクション．
     @IBAction func PushSaveButton(sender: AnyObject) {
@@ -43,7 +43,7 @@ class ViewController_edit: UIViewController {
         MoveView("etsuran") ;
     }
     
-    @IBAction func PushTitle(sender: AnyObject) {
+    @IBAction func pushTitle(sender: AnyObject) {
     }
     
     
@@ -52,8 +52,9 @@ class ViewController_edit: UIViewController {
         
         switch ViewName {
         case "etsuran"://編集画面へ飛ぶ
-            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as ViewController_etsuran ;
+            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
+            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
+            self.navigationController?.pushViewController(nextViewController, animated: true);
         default ://エラー処理どうする？
             break ;
         }

@@ -45,7 +45,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
-        cell.textLabel.text = texts[indexPath.row]
+        cell.textLabel!.text = texts[indexPath.row]
         
         return cell
     }
@@ -59,12 +59,12 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
          *  -> 鍵がかかっていなければ閲覧画面へ
          */
         
-        var flg: Int = 1
+        let flg: Int = 1
         
         if (flg == 1){
         // 遷移先のstoryboardを取得.initialのViewControllerを取得
-            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as ViewController_etsuran ;
+            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
+            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
             
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true) ;
@@ -72,8 +72,8 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
 
         else{
             // 遷移先のstoryboardを取得.initialのViewControllerを取得
-            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_matching", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_matching = storyboard.instantiateInitialViewController() as ViewController_matching
+            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_matching", bundle: NSBundle.mainBundle())
+            let nextViewController: ViewController_matching = storyboard.instantiateInitialViewController() as! ViewController_matching
                 
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -83,8 +83,8 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     
     // addBtnをタップしたときのアクション
     func onClick() {
-        var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_edit", bundle: NSBundle.mainBundle())
-        var nextViewController: ViewController_edit = storyboard.instantiateInitialViewController() as ViewController_edit
+        let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_edit", bundle: NSBundle.mainBundle())
+        let nextViewController: ViewController_edit = storyboard.instantiateInitialViewController() as! ViewController_edit
         
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }

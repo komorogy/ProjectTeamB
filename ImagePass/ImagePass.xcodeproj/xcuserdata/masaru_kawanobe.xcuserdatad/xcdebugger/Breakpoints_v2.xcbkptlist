@@ -24,13 +24,14 @@
                   continueAfterRunningActions = "No"
                   symbolName = "ImagePass.AppDelegate.Id.getter : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;"
                   moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/AppDelegate.swift"
-                  timestampString = "465747759.435887"
+                  timestampString = "465892920.35245"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "12">
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "15">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -38,13 +39,14 @@
                   continueAfterRunningActions = "No"
                   symbolName = "ImagePass.AppDelegate.Id.setter : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;"
                   moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/AppDelegate.swift"
-                  timestampString = "465747759.436128"
+                  timestampString = "465892920.352828"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "43">
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "50">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -52,13 +54,14 @@
                   continueAfterRunningActions = "No"
                   symbolName = "ImagePass.AppDelegate.Id.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;"
                   moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/AppDelegate.swift"
-                  timestampString = "465747759.436297"
+                  timestampString = "465892920.353061"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -66,8 +69,9 @@
                   continueAfterRunningActions = "No"
                   symbolName = "ImagePass.AppDelegate.init (ImagePass.AppDelegate.Type)() -&gt; ImagePass.AppDelegate"
                   moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/AppDelegate.swift"
-                  timestampString = "465747759.436446"
+                  timestampString = "465892920.353289"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "18"
@@ -98,6 +102,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "@objc ImagePass.AppDelegate.__ivar_destroyer"
                   moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/AppDelegate.swift"
                   timestampString = "465747653.131915"
                   startingColumnNumber = "9223372036854775807"
@@ -112,6 +117,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "top_level_code"
                   moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/AppDelegate.swift"
                   timestampString = "465747653.132088"
                   startingColumnNumber = "9223372036854775807"
@@ -130,12 +136,202 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ImagePass/ViewController_etsuran.swift"
-            timestampString = "465747235.99221"
+            timestampString = "465896611.038298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "PushBackButton(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImagePass/ViewController_etsuran.swift"
+            timestampString = "465896611.038298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "ViewController_etsuran"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImagePass/ViewController_etsuran.swift"
+            timestampString = "465896611.038298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImagePass/ViewController_etsuran.swift"
+            timestampString = "465896611.038298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImagePass/ViewController_etsuran.swift"
+            timestampString = "465896611.038298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "ViewController_etsuran"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImagePass.ViewController_etsuran.fileManager.getter : ObjectiveC.NSFileManager"
+                  moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/ViewController_etsuran.swift"
+                  timestampString = "465895756.442413"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImagePass.ViewController_etsuran.init (ImagePass.ViewController_etsuran.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; ImagePass.ViewController_etsuran"
+                  moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/ViewController_etsuran.swift"
+                  timestampString = "465895756.442667"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "505">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImagePass/ViewController_etsuran.swift"
+            timestampString = "465896605.596897"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "ViewController_etsuran"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImagePass.ViewController_etsuran.TextViewer.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITextView&gt;"
+                  moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/ViewController_etsuran.swift"
+                  timestampString = "465896612.050085"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImagePass.ViewController_etsuran.TextViewer.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITextView&gt;"
+                  moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/ViewController_etsuran.swift"
+                  timestampString = "465896612.050948"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImagePass.ViewController_etsuran.init (ImagePass.ViewController_etsuran.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; ImagePass.ViewController_etsuran"
+                  moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/ViewController_etsuran.swift"
+                  timestampString = "465896612.05121"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "719">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImagePass.ViewController_etsuran.init (ImagePass.ViewController_etsuran.Type)(coder : ObjectiveC.NSCoder) -&gt; Swift.Optional&lt;ImagePass.ViewController_etsuran&gt;"
+                  moduleName = "ImagePass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masaru_kawanobe/Desktop/ImagePass/ImagePass/ImagePass/ViewController_etsuran.swift"
+                  timestampString = "465896612.051551"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "617">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImagePass/ViewController_etsuran.swift"
+            timestampString = "465896746.825482"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -32,13 +32,13 @@ class ViewController_satsuei: UIViewController {
         
         switch ViewName {
         case "Main"://一覧画面へ飛ぶ
-            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_Main", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as ViewController_Main ;
+            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_Main", bundle: NSBundle.mainBundle())
+            let nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as! ViewController_Main ;
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true);
         case "edit"://閲覧画面へ飛ぶ
-            var storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            var nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as ViewController_etsuran ;
+            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
+            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true);
         default ://エラー処理どうする？
