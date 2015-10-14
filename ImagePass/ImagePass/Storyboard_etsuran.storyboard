@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5dt-ne-gJF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -31,9 +31,6 @@
                                 <state key="normal" title="Back">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="PushBackButton:" destination="5dt-ne-gJF" eventType="touchUpInside" id="1cf-pV-Agr"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejH-UP-ZZN">
                                 <rect key="frame" x="526" y="11" width="54" height="30"/>
@@ -41,16 +38,12 @@
                                 <state key="normal" title="Camera">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="PushCameraButton:" destination="5dt-ne-gJF" eventType="touchUpInside" id="JtR-6Y-p8m"/>
-                                    <action selector="pushCamaraButton:" destination="5dt-ne-gJF" eventType="touchUpInside" id="G2y-FG-UiE"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WG-at-FVv">
                                 <rect key="frame" x="55" y="16" width="463" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -58,11 +51,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="BackButton" destination="Xaa-ur-Arx" id="Nwt-CW-Ljk"/>
-                        <outlet property="CameraButton" destination="ejH-UP-ZZN" id="qvg-Oo-eyN"/>
-                        <outlet property="PushCameraButton" destination="ejH-UP-ZZN" id="TeF-uT-SAv"/>
                         <outlet property="TextViewer" destination="N9a-fT-UJE" id="bmL-Yg-OWw"/>
-                        <outlet property="Title" destination="uNL-EY-xGy" id="0Xe-Li-B89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AA-Dg-maS" userLabel="First Responder" sceneMemberID="firstResponder"/>

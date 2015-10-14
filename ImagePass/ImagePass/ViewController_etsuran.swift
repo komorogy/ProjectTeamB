@@ -18,6 +18,7 @@ import UIKit
 
 
 class ViewController_etsuran: UIViewController {
+/*
     // AppDelegateのインスタンス化
     let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
     //アプリケーションが自由にできるDocumentディレクトリのパス
@@ -35,10 +36,11 @@ class ViewController_etsuran: UIViewController {
     @IBOutlet weak var TextViewer: UITextView!
     
     
-    
+*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
+/*
         // Do any additional setup after loading the view, typically from a nib.
         
         ////////////////////////////////////////////////////////////////////
@@ -63,11 +65,11 @@ class ViewController_etsuran: UIViewController {
             }
             MoveView("edit") ;
         }
-        
+*/
     }
     
 
-    
+/*
     
 
     //Backボタンが押されたとき
@@ -153,11 +155,12 @@ class ViewController_etsuran: UIViewController {
         
     }
     
-    
+*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
 }
 

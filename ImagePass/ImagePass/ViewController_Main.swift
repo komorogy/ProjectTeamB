@@ -10,10 +10,13 @@ import UIKit
 
 class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    //ひとまず画面遷移用だけ形になるようにフラグを作成　マッチング画面を通ればtrueになる
+    private var flg: Bool = false
+    
     // storyboardのtableviewを宣言
     @IBOutlet weak var tableView: UITableView!
     
-    var addBtn :UIBarButtonItem!
+    //var addBtn :UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +25,10 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.title = "List"
+        self.title = "MemoList"
         // addBtnを設置
-        addBtn = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onClick")
-        self.navigationItem.rightBarButtonItem = addBtn
+        //addBtn = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onClick")
+        //self.navigationItem.rightBarButtonItem = addBtn
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,8 +53,20 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         return cell
     }
     
+    //スワイプしてdelete(実際の削除は未実装)
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
     // Cell が選択された場合
-    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
+    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {        
+        
+        if (flg) {
+            performSegueWithIdentifier("showMemo",sender: nil)
+        }
+        else if (!flg) {
+        // matching画面へ遷移するために Segue を呼び出す
+            performSegueWithIdentifier("modalMatching",sender: nil)
+    }
         
         /*
          * 選択されたidを取得する(未実装)
@@ -59,36 +74,49 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
          *  -> 鍵がかかっていなければ閲覧画面へ
          */
         
-        let flg: Int = 1
-        
-        if (flg == 1){
-        // 遷移先のstoryboardを取得.initialのViewControllerを取得
-            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
-            
-            // 画面遷移
-            self.navigationController?.pushViewController(nextViewController, animated: true) ;
-        }
-
-        else{
-            // 遷移先のstoryboardを取得.initialのViewControllerを取得
-            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_matching", bundle: NSBundle.mainBundle())
-            let nextViewController: ViewController_matching = storyboard.instantiateInitialViewController() as! ViewController_matching
-                
-            // 画面遷移
-            self.navigationController?.pushViewController(nextViewController, animated: true)
-            
-        }
+//        let flg: Int = 1
+//        
+//        if (flg == 1){
+//        // 遷移先のstoryboardを取得.initialのViewControllerを取得
+//            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
+//            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
+//            
+//            // 画面遷移
+//            self.navigationController?.pushViewController(nextViewController, animated: true) ;
+//        }
+//
+//        else{
+//            // 遷移先のstoryboardを取得.initialのViewControllerを取得
+//            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_matching", bundle: NSBundle.mainBundle())
+//            let nextViewController: ViewController_matching = storyboard.instantiateInitialViewController() as! ViewController_matching
+//                
+//            // 画面遷移
+//            self.navigationController?.pushViewController(nextViewController, animated: true)
+//            
+//        }
     }
     
     // addBtnをタップしたときのアクション
-    func onClick() {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_edit", bundle: NSBundle.mainBundle())
-        let nextViewController: ViewController_edit = storyboard.instantiateInitialViewController() as! ViewController_edit
-        
-        self.navigationController?.pushViewController(nextViewController, animated: true)
-    }
+//    func onClick() {
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_edit", bundle: NSBundle.mainBundle())
+//        let nextViewController: ViewController_edit = storyboard.instantiateInitialViewController() as! ViewController_edit
+//        
+//        self.navigationController?.pushViewController(nextViewController, animated: true)
+//    }
+//    
     
+    //unWind
+    @IBAction func exitToMain(segue: UIStoryboardSegue)
+    {
+        //画面遷移を分けるために、マッチング画面のOpenボタンで帰ってきた場合、鍵解除ということにしている
+        if(segue.identifier == "openMemo"){
+            self.flg = true
+        }
+        //画面遷移を分けるために、鍵設定画面のボタンで帰ってきた場合、施錠ということにしている
+        else if(segue.identifier == "setGPS"){
+            self.flg = false
+        }
+    }
 
 }
 

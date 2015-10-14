@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8n2-PG-JBh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -22,11 +22,6 @@
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="PushTitle:" destination="8n2-PG-JBh" eventType="editingDidEnd" id="yWB-9M-GDl"/>
-                                    <action selector="PushTittle:" destination="8n2-PG-JBh" eventType="editingDidEnd" id="pWI-8s-toz"/>
-                                    <action selector="pushTitle:" destination="8n2-PG-JBh" eventType="editingDidEnd" id="ePp-Sy-e1o"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMZ-SD-j4a">
                                 <rect key="frame" x="5" y="0.0" width="35" height="30"/>
@@ -34,9 +29,6 @@
                                 <state key="normal" title="Back">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="PushBackButton:" destination="8n2-PG-JBh" eventType="touchUpInside" id="Lib-ha-441"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVi-bE-Pkw">
                                 <rect key="frame" x="515" y="0.0" width="34" height="30"/>
@@ -44,9 +36,6 @@
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="PushSaveButton:" destination="8n2-PG-JBh" eventType="touchUpInside" id="iMr-Xv-z0c"/>
-                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="38V-GN-VAq">
                                 <rect key="frame" x="52" y="55" width="455" height="475"/>
@@ -59,12 +48,6 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="BackButton" destination="tMZ-SD-j4a" id="8BU-q8-19D"/>
-                        <outlet property="SaveButton" destination="SVi-bE-Pkw" id="OZh-5I-QTo"/>
-                        <outlet property="Title" destination="uuz-40-gc8" id="jDM-sb-yO0"/>
-                        <outlet property="myTitle" destination="uuz-40-gc8" id="Ta3-Qi-EbU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z5T-jS-zMH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

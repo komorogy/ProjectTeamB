@@ -13,10 +13,10 @@ import UIKit
 // MoveView(ViewName:String) : 画面遷移する関数
 /////////////////////////////////////////////////////////////////////////
 
-
+/*
 // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
-
+*/
 class ViewController_edit: UIViewController {
     
     override func viewDidLoad() {
@@ -24,7 +24,7 @@ class ViewController_edit: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
     }
-
+/*
     //ボタンとかの宣言
     @IBOutlet weak var SaveButton: UIButton!
     @IBOutlet weak var BackButton: UIButton!
@@ -45,11 +45,11 @@ class ViewController_edit: UIViewController {
     
     @IBAction func pushTitle(sender: AnyObject) {
     }
-    
+*/
     
     //MoveView(ViewName:String) : 画面遷移する関数
     private func MoveView(ViewName:String){
-        
+/*
         switch ViewName {
         case "etsuran"://編集画面へ飛ぶ
             let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
@@ -58,7 +58,7 @@ class ViewController_edit: UIViewController {
         default ://エラー処理どうする？
             break ;
         }
-        
+*/
     }
     
     

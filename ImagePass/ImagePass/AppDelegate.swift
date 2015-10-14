@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var navigationController: UINavigationController?
+//    var navigationController: UINavigationController?
 
     //画面間のパラメータ用の変数
     var Id: String!
@@ -22,14 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // 初期画面のstoryboard(Main)とその中のinitialに設定されているViewControllerを取得
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let mainViewController: UIViewController = storyboard.instantiateInitialViewController() as UIViewController! ;
-        
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.navigationController = UINavigationController(rootViewController: mainViewController)
-        
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//        let mainViewController: UIViewController = storyboard.instantiateInitialViewController() as UIViewController! ;
+//        
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        self.navigationController = UINavigationController(rootViewController: mainViewController)
+//        
+//        self.window?.rootViewController = navigationController
+//        self.window?.makeKeyAndVisible()
         return true
     }
 

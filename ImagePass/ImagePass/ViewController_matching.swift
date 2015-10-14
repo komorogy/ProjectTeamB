@@ -8,10 +8,10 @@
 //
 
 import UIKit
-
+/*
 // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
-
+*/
 
 class ViewController_matching: UIViewController {
     
@@ -24,7 +24,7 @@ class ViewController_matching: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+/*
     // 一覧画面に戻る。
     @IBAction func btnBackToList(sender: AnyObject) {
         MoveView("Main");
@@ -61,4 +61,5 @@ class ViewController_matching: UIViewController {
         
         
     }
+*/
 }
