@@ -36,12 +36,12 @@ class ViewController_matching: UIViewController {
     @IBAction func btnToView(sender: AnyObject) {
         MoveView("eturan");
     }
-    
+*/
     //MoveView(ViewName:String) : 画面遷移する関数
     private func MoveView(ViewName:String){
         
         switch ViewName {
-        case "etsuran"://閲覧画面へ飛ぶ
+/*        case "etsuran"://閲覧画面へ飛ぶ
             let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
             let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
             // 画面遷移
@@ -53,13 +53,13 @@ class ViewController_matching: UIViewController {
             let nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as! ViewController_Main ;
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true);
-            
+
             break ;
-            //default ://エラー処理どうする？
-            //    break ;
+*/          default ://エラー処理どうする？
+                break ;
         }
         
         
     }
-*/
+
 }

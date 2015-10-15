@@ -18,15 +18,15 @@ import UIKit
 
 
 class ViewController_etsuran: UIViewController {
-/*
+
     // AppDelegateのインスタンス化
-    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
+//    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
     //アプリケーションが自由にできるDocumentディレクトリのパス
     let rootDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String;
     
     // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
     let fileManager:NSFileManager = NSFileManager.defaultManager() ;
-
+/*
     
     //ボタンとかの宣言
     @IBOutlet weak var BackButton: UIButton!
@@ -34,13 +34,12 @@ class ViewController_etsuran: UIViewController {
     @IBOutlet weak var CameraButton: UIButton!
     
     @IBOutlet weak var TextViewer: UITextView!
-    
-    
 */
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-/*
+
         // Do any additional setup after loading the view, typically from a nib.
         
         ////////////////////////////////////////////////////////////////////
@@ -48,11 +47,14 @@ class ViewController_etsuran: UIViewController {
         //Id=""のとき，新規作成
         //Id="hogehoge"のとき，既存のファイルを開く．
         ////////////////////////////////////////////////////////////////////
-        BackButton.setTitle("Back", forState: UIControlState.Normal) ;
+/*        BackButton.setTitle("Back", forState: UIControlState.Normal) ;
         CameraButton.setTitle("Camera", forState: UIControlState.Normal) ;
         TextViewer.text="test" ;
+*/
         
-        let ID:String = appDelegate.Id ;
+//        let ID:String = appDelegate.Id ;
+//appDelegateを使うとビルドエラーが起こるので、暫定的にコメントアウトしました
+        let ID:String = ""; //処理がエラーにならないように書いただけ
         
         var dataDirectory = rootDirectory ;
 
@@ -65,23 +67,23 @@ class ViewController_etsuran: UIViewController {
             }
             MoveView("edit") ;
         }
-*/
+
     }
-    
 
+
+
+    
 /*
-    
-
     //Backボタンが押されたとき
     @IBAction func PushBackButton(sender: AnyObject) {
         MoveView("Main");
     }
-    
+*/
     //Cameraボタンが押されたとき
     /*@IBAction func pushCamaraButton(sender: AnyObject) {
         MoveView("satsuei") ;
     }*/
-    
+
         
     
     //IsExistDirectory(ID:String)->Bool : "rootDirectory/ID"というディレクトリが存在するか確認する．
@@ -134,7 +136,7 @@ class ViewController_etsuran: UIViewController {
     private func MoveView(ViewName:String){
         
         switch ViewName {
-        case "Main"://一覧画面へ飛ぶ
+/*        case "Main"://一覧画面へ飛ぶ
             let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_Main", bundle: NSBundle.mainBundle())
             let nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as! ViewController_Main ;
             // 画面遷移
@@ -149,13 +151,13 @@ class ViewController_etsuran: UIViewController {
             let nextViewController: ViewController_satsuei = storyboard.instantiateInitialViewController() as! ViewController_satsuei ;
             // 画面遷移
             self.navigationController?.pushViewController(nextViewController, animated: true);
-        default ://エラー処理どうする？
+ */       default ://エラー処理どうする？
             break ;
         }
         
     }
     
-*/
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

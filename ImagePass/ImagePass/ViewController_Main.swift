@@ -16,19 +16,12 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     // storyboardのtableviewを宣言
     @IBOutlet weak var tableView: UITableView!
     
-    //var addBtn :UIBarButtonItem!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.  
         // tableviewの紐付け
         tableView.delegate = self
         tableView.dataSource = self
-        
-        self.title = "MemoList"
-        // addBtnを設置
-        //addBtn = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onClick")
-        //self.navigationItem.rightBarButtonItem = addBtn
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,54 +53,34 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {        
         
+        /*
+        * 選択されたidを取得する(未実装)
+        *  -> 鍵がかかっていればマッチング画面へ
+        *  -> 鍵がかかっていなければ閲覧画面へ
+        */
+        
+        // 閲覧画面へ遷移するために Segue を呼び出す
         if (flg) {
             performSegueWithIdentifier("showMemo",sender: nil)
         }
         else if (!flg) {
         // matching画面へ遷移するために Segue を呼び出す
             performSegueWithIdentifier("modalMatching",sender: nil)
-    }
+        }
         
-        /*
-         * 選択されたidを取得する(未実装)
-         *  -> 鍵がかかっていればマッチング画面へ
-         *  -> 鍵がかかっていなければ閲覧画面へ
-         */
-        
-//        let flg: Int = 1
-//        
-//        if (flg == 1){
-//        // 遷移先のstoryboardを取得.initialのViewControllerを取得
-//            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-//            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
-//            
-//            // 画面遷移
-//            self.navigationController?.pushViewController(nextViewController, animated: true) ;
-//        }
-//
-//        else{
-//            // 遷移先のstoryboardを取得.initialのViewControllerを取得
-//            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_matching", bundle: NSBundle.mainBundle())
-//            let nextViewController: ViewController_matching = storyboard.instantiateInitialViewController() as! ViewController_matching
-//                
-//            // 画面遷移
-//            self.navigationController?.pushViewController(nextViewController, animated: true)
-//            
-//        }
     }
     
-    // addBtnをタップしたときのアクション
-//    func onClick() {
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_edit", bundle: NSBundle.mainBundle())
-//        let nextViewController: ViewController_edit = storyboard.instantiateInitialViewController() as! ViewController_edit
-//        
-//        self.navigationController?.pushViewController(nextViewController, animated: true)
-//    }
-//    
+    
     
     //unWind
     @IBAction func exitToMain(segue: UIStoryboardSegue)
     {
+        /* -----------------------------------------------------------------------
+            画面遷移を成功させるために、
+            ここでflgの書き換えをして、セルを選択した時にflgを見て遷移先を選ぶようにしています
+            実際はここでの処理は必要なく、セル選択時にディレクトリを見に行って遷移先を判断する
+           ----------------------------------------------------------------------- */
+        
         //画面遷移を分けるために、マッチング画面のOpenボタンで帰ってきた場合、鍵解除ということにしている
         if(segue.identifier == "openMemo"){
             self.flg = true

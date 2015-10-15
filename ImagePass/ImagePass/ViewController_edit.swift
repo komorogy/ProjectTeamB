@@ -49,16 +49,16 @@ class ViewController_edit: UIViewController {
     
     //MoveView(ViewName:String) : 画面遷移する関数
     private func MoveView(ViewName:String){
-/*
+
         switch ViewName {
-        case "etsuran"://編集画面へ飛ぶ
+/*        case "etsuran"://編集画面へ飛ぶ
             let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
             let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
             self.navigationController?.pushViewController(nextViewController, animated: true);
-        default ://エラー処理どうする？
+*/        default ://エラー処理どうする？
             break ;
         }
-*/
+
     }
     
     
