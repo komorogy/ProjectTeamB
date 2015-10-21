@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 ////////////////////////////////////////////////////////////////////////////////
 // ViewController_satsuei.swift で定義している関数．
 // MoveView(ViewName:String) : 画面遷移する関数
@@ -19,11 +19,35 @@ import UIKit
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 
 
-class ViewController_satsuei: UIViewController {
+class ViewController_satsuei: UIViewController,MKMapViewDelegate {
 
+    //地図のview宣言
+    @IBOutlet weak var map: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+      
+        //位置情報を取得するときに呼ぶらしい。
+        let userLocationManager = CLLocationManager() ;
+        userLocationManager.startUpdatingLocation() ;
+        
+        let userLocation = MKUserLocation() ;
+        print (userLocation.coordinate)
+      
+        
+        let location : CLLocationCoordinate2D = CLLocationCoordinate2DMake(35.68154,139.752498)
+        
+        //地図の初期位置の設定
+        map.setCenterCoordinate(location, animated: true) ;
+
+        //地図の縮尺とかの設定
+        var myRegion:MKCoordinateRegion = map.region ;
+        myRegion.center = location ;
+        myRegion.span.latitudeDelta = 0.02 ;
+        myRegion.span.longitudeDelta = 0.02 ;
+        map.setRegion(myRegion, animated: true) ;
     }
 
     
@@ -54,5 +78,3 @@ class ViewController_satsuei: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-
-//ボタンアクションはここに書く
