@@ -19,35 +19,31 @@ import MapKit
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 
 
-class ViewController_satsuei: UIViewController,MKMapViewDelegate {
+class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
 
     //地図のview宣言
     @IBOutlet weak var map: MKMapView!
+    //位置情報を取得するときに呼ぶらしい。
+    var locationManager = CLLocationManager();
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-      
-        //位置情報を取得するときに呼ぶらしい。
-        let userLocationManager = CLLocationManager() ;
-        userLocationManager.startUpdatingLocation() ;
+        locationManager.delegate = self ;
         
-        let userLocation = MKUserLocation() ;
-        print (userLocation.coordinate)
-      
-        
-        let location : CLLocationCoordinate2D = CLLocationCoordinate2DMake(35.68154,139.752498)
-        
-        //地図の初期位置の設定
-        map.setCenterCoordinate(location, animated: true) ;
-
-        //地図の縮尺とかの設定
-        var myRegion:MKCoordinateRegion = map.region ;
-        myRegion.center = location ;
-        myRegion.span.latitudeDelta = 0.02 ;
-        myRegion.span.longitudeDelta = 0.02 ;
-        map.setRegion(myRegion, animated: true) ;
+        //位置情報取得が許可されていない場合．
+        if(CLLocationManager.authorizationStatus() != CLAuthorizationStatus.AuthorizedAlways){
+            locationManager.requestAlwaysAuthorization() ;
+        }
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest ;
+        locationManager.distanceFilter = 300 ;
+        locationManager.startUpdatingLocation() ;
+  
+        /*let location = CLLocationCoordinate2DMake(33.564, 139.930531) ;
+        let span = MKCoordinateSpanMake(1.0, 1.0) ;
+        let region = MKCoordinateRegionMake(location, span) ;
+        map.setRegion(region, animated: true) ;*/
     }
 
     
@@ -71,6 +67,42 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate {
         
     }
     
+    //位置情報取得成功時に呼ばれる関数
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+        
+        //newLocationに現在地の情報が格納されている
+        let longtitude = newLocation.coordinate.longitude ;
+        let latitude = newLocation.coordinate.latitude ;
+        let location = CLLocationCoordinate2DMake(latitude, longtitude) ;
+
+        print("called!!") ;
+        print(longtitude) ;
+        print(latitude) ;
+        
+        //表示する地図の中心を現在地に設定
+        map.setCenterCoordinate(location, animated: true) ;
+        
+        
+        var region = map.region ;
+        region.center = location ;
+        region.span.latitudeDelta = 0.9 ;
+        region.span.longitudeDelta = 0.9 ;
+        
+        map.mapType = MKMapType.Standard ;
+      
+        map.setRegion(region, animated: true) ;
+        
+        locationManager.stopUpdatingLocation() ;
+    }
+    
+    //位置情報取得失敗時に呼ばれる関数
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        let alert = UIAlertView() ;
+        alert.title = "get no location" ;
+        alert.message = "locationManager.startUpdatingLocation failed" ;
+        alert.addButtonWithTitle("OK") ;
+        alert.show() ;
+    }
     
     
     override func didReceiveMemoryWarning() {
