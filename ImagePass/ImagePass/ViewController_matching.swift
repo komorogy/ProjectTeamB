@@ -10,7 +10,6 @@
 import UIKit
 import CoreLocation
 
-
 class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     var lm: CLLocationManager!
@@ -64,6 +63,22 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         lm.startUpdatingHeading()
     }
     
+    // ナビゲーションバー上の戻るボタン
+    @IBAction func BackButton(sender: AnyObject) {
+        self.Closemodal(sender)
+    }
+    
+    // 仮ボタン　解錠と仮定
+    @IBAction func OpenButton(sender: AnyObject) {
+        self.Closemodal(sender)
+    }
+    
+    // モーダルを破棄する
+    private func Closemodal(sender: AnyObject?){
+        self.dismissViewControllerAnimated(true , completion: nil)
+    }
+    
+    
     /* 位置情報取得成功時に実行される関数 */
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation){
         // 取得した緯度がnewLocation.coordinate.longitudeに格納されている
@@ -97,42 +112,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-/*
-    // 一覧画面に戻る。
-    @IBAction func btnBackToList(sender: AnyObject) {
-        MoveView("Main");
-    }
     
-    // 閲覧画面への遷移。
-    // 実際には解錠条件を満たしたときで、ボタンをおしたときではない。
-    //  ボタンも後で消す。
-    @IBAction func btnToView(sender: AnyObject) {
-        MoveView("eturan");
-    }
-*/
-    //MoveView(ViewName:String) : 画面遷移する関数
-    private func MoveView(ViewName:String){
-        
-        switch ViewName {
-/*        case "etsuran"://閲覧画面へ飛ぶ
-            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
-            // 画面遷移
-            self.navigationController?.pushViewController(nextViewController, animated: true);
-            break ;
-            //case "etsuran"://一覧画面へ飛ぶ
-        default://
-            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_Main", bundle: NSBundle.mainBundle())
-            let nextViewController: ViewController_Main = storyboard.instantiateInitialViewController() as! ViewController_Main ;
-            // 画面遷移
-            self.navigationController?.pushViewController(nextViewController, animated: true);
 
-            break ;
-*/          default ://エラー処理どうする？
-                break ;
-        }
-        
-        
-    }
 
 }

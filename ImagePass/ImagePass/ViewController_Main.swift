@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDelegate{
     
     //ひとまず画面遷移用だけ形になるようにフラグを作成　マッチング画面を通ればtrueになる
     private var flg: Bool = false
@@ -70,26 +70,29 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         
     }
     
-    
-    
-    //unWind
-    @IBAction func exitToMain(segue: UIStoryboardSegue)
-    {
-        /* -----------------------------------------------------------------------
-            画面遷移を成功させるために、
-            ここでflgの書き換えをして、セルを選択した時にflgを見て遷移先を選ぶようにしています
-            実際はここでの処理は必要なく、セル選択時にディレクトリを見に行って遷移先を判断する
-           ----------------------------------------------------------------------- */
-        
-        //画面遷移を分けるために、マッチング画面のOpenボタンで帰ってきた場合、鍵解除ということにしている
-        if(segue.identifier == "openMemo"){
-            self.flg = true
-        }
-        //画面遷移を分けるために、鍵設定画面のボタンで帰ってきた場合、施錠ということにしている
-        else if(segue.identifier == "setGPS"){
-            self.flg = false
-        }
+    func changeFlg(sentflg: Bool){
+        flg = sentflg
     }
+    
+    
+//    //unWind
+//    @IBAction func exitToMain(segue: UIStoryboardSegue)
+//    {
+//        /* -----------------------------------------------------------------------
+//            画面遷移を成功させるために、
+//            ここでflgの書き換えをして、セルを選択した時にflgを見て遷移先を選ぶようにしています
+//            実際はここでの処理は必要なく、セル選択時にディレクトリを見に行って遷移先を判断する
+//           ----------------------------------------------------------------------- */
+//        
+//        //画面遷移を分けるために、マッチング画面のOpenボタンで帰ってきた場合、鍵解除ということにしている
+//        if(segue.identifier == "openMemo"){
+//            self.flg = true
+//        }
+//        //画面遷移を分けるために、鍵設定画面のボタンで帰ってきた場合、施錠ということにしている
+//        else if(segue.identifier == "setGPS"){
+//            self.flg = false
+//        }
+//    }
 
 }
 

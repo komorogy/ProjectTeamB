@@ -46,6 +46,22 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         map.setRegion(region, animated: true) ;*/
     }
 
+    // ナビゲーションバー上の戻るボタン
+    @IBAction func BackButton(sender: AnyObject) {
+        self.Closemodal(sender)
+    }
+    
+    // ナビゲーションバーにある仮ボタン GPSが設定されたと仮定
+    @IBAction func SetGPSButton(sender: AnyObject) {
+        
+        self.Closemodal(sender)
+    }
+    
+    // モーダルを破棄する
+    private func Closemodal(sender: AnyObject?){
+        self.dismissViewControllerAnimated(true , completion: nil)
+    }
+    
     
     //MoveView(ViewName:String) : 画面遷移する関数
     private func MoveView(ViewName:String){

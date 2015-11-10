@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gTP-IT-LVy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gTP-IT-LVy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -48,7 +48,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="o3l-qx-ENK" id="ZoF-4h-eNp"/>
-                        <segue destination="xVU-8i-Qzk" kind="presentation" identifier="modalMatching" id="f5b-Ca-9pH"/>
+                        <segue destination="6wO-wv-DNY" kind="presentation" identifier="modalMatching" id="f5b-Ca-9pH"/>
                         <segue destination="zgs-Fc-Dem" kind="show" identifier="showMemo" id="6BE-iy-nfC"/>
                     </connections>
                 </viewController>
@@ -68,19 +68,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAJ-CL-TD5">
-                                <rect key="frame" x="5" y="54" width="48" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <segue destination="R2j-E0-1Yl" kind="unwind" identifier="cancelMatching" unwindAction="exitToMain:" id="fQE-2c-Qr4"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81K-N7-lDm">
-                                <rect key="frame" x="268" y="507" width="38" height="30"/>
+                                <rect key="frame" x="141" y="269" width="38" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Open"/>
                                 <connections>
+                                    <action selector="OpenButton:" destination="xVU-8i-Qzk" eventType="touchUpInside" id="nox-8h-gwe"/>
                                     <segue destination="R2j-E0-1Yl" kind="unwind" identifier="openMemo" unwindAction="exitToMain:" id="DUR-WJ-lBh"/>
                                 </connections>
                             </button>
@@ -88,12 +81,19 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="tcU-7a-2Mz">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="ceG-iA-FdV">
+                            <connections>
+                                <action selector="BackButton:" destination="xVU-8i-Qzk" id="BCP-iy-bRK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2w-Ft-nud" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="R2j-E0-1Yl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="797" y="709"/>
+            <point key="canvasLocation" x="1329" y="709"/>
         </scene>
         <!--Etsuran-->
         <scene sceneID="fca-h4-FhO">
@@ -115,13 +115,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2Z-1q-GSG">
-                                <rect key="frame" x="5" y="73" width="37" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSE-cH-xen">
                                 <rect key="frame" x="78" y="78" width="164" height="21"/>
                                 <animations/>
@@ -129,24 +122,11 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FE-88-TAr">
-                                <rect key="frame" x="263" y="73" width="30" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Map">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Etsuran" id="0xI-hX-Wne">
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="cyX-r9-7dX">
-                            <connections>
-                                <segue destination="bQF-vJ-D76" kind="presentation" identifier="modalMap" id="tve-TB-6gp"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Etsuran" id="0xI-hX-Wne"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQZ-Oh-5t3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -178,20 +158,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7c4-Px-zmj">
-                                <rect key="frame" x="7" y="71" width="35" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hio-0r-Yw0">
-                                <rect key="frame" x="266" y="71" width="34" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -199,14 +165,13 @@
                     <navigationItem key="navigationItem" title="Edit" id="8fN-if-Mwi">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="eeE-NL-ELN">
                             <connections>
-                                <segue destination="KJV-Fb-hQN" kind="unwind" identifier="saved" unwindAction="exitToMain:" id="ohb-DC-1UW"/>
+                                <segue destination="F3O-Ic-n1F" kind="presentation" id="PlA-LV-7dg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76Z-l0-VFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="KJV-Fb-hQN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="846" y="-675"/>
         </scene>
@@ -223,13 +188,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cMV-e3-74Y">
-                                <rect key="frame" x="20" y="47" width="280" height="446"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="510"/>
                                 <animations/>
                             </mapView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="PnI-II-yMU">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="xmb-kM-kwy">
+                            <connections>
+                                <action selector="BackButton:" destination="bQF-vJ-D76" id="b8J-E6-tjc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Set" id="9E0-G7-6Fz">
+                            <connections>
+                                <action selector="SetGPSButton:" destination="bQF-vJ-D76" id="tq4-7S-ah0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="map" destination="cMV-e3-74Y" id="uAv-fN-IMz"/>
@@ -237,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8J-IG-pgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1708" y="-377"/>
+            <point key="canvasLocation" x="2226" y="-375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KZD-cA-eGU">
@@ -258,6 +235,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o1G-lX-nF2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-72" y="16"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1aP-51-Jvm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6wO-wv-DNY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mq6-zq-rlf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xVU-8i-Qzk" kind="relationship" relationship="rootViewController" id="bkM-Yz-1jr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ks8-ak-dnu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="797" y="709"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Mp-72-YR4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F3O-Ic-n1F" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="syt-dp-95X">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bQF-vJ-D76" kind="relationship" relationship="rootViewController" id="Jfw-Yl-HLg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="255-aY-eFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1694" y="-375"/>
         </scene>
     </scenes>
 </document>
