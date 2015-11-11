@@ -40,6 +40,10 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         locationManager.distanceFilter = 300 ;
         locationManager.startUpdatingLocation() ;
   
+        
+
+        
+        
         /*let location = CLLocationCoordinate2DMake(33.564, 139.930531) ;
         let span = MKCoordinateSpanMake(1.0, 1.0) ;
         let region = MKCoordinateRegionMake(location, span) ;
@@ -54,6 +58,9 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     // ナビゲーションバーにある仮ボタン GPSが設定されたと仮定
     @IBAction func SetGPSButton(sender: AnyObject) {
         
+        //アラートで確認後、データの保存処理
+        
+        //
         self.Closemodal(sender)
     }
     
@@ -98,11 +105,30 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         //表示する地図の中心を現在地に設定
         map.setCenterCoordinate(location, animated: true) ;
         
+        //ピンを立てる処理
+        var myPin: MKPointAnnotation = MKPointAnnotation()
+        
+        // 座標を設定.
+        myPin.coordinate = location
+
+        /*
+        
+        // タイトルを設定.
+        myPin.title = "タイトル"
+        
+        // サブタイトルを設定.
+        myPin.subtitle = "サブタイトル"
+        
+        */
+
+        // MapViewにピンを追加.
+        map.addAnnotation(myPin)
+        
         
         var region = map.region ;
         region.center = location ;
-        region.span.latitudeDelta = 0.05 ;
-        region.span.longitudeDelta = 0.05 ;
+        region.span.latitudeDelta = 0.01 ;
+        region.span.longitudeDelta = 0.01 ;
         
         map.mapType = MKMapType.Standard ;
       

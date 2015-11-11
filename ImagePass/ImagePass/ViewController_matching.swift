@@ -30,6 +30,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // var memo : objc_object!;// 指定されたメモのデータが入ってると想定
         // var memo = { title: "メモのタイトル", text: "メモ本文", latitude: 1369.9, longtitue: 35.8}
         var memo = ["メモのタイトル", "本文", "136.9", "35.8"];
+  
         /**
          * memo = { title: メモのタイトル, text: メモ本文, latitude: 緯度, longtitue: 経度}
          * あるいはmemo = [メモのタイトル, 本文, 緯度, 経度];
@@ -86,9 +87,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 取得した経度がnewLocation.coordinate.longitudeに格納されている
         longitude = newLocation.coordinate.longitude
         
+        
         // 目標のGPSと現在地との差
         var difLong = goalLongtitude - longitude;
         var difLati = goalLatitude - latitude;
+        
+
         
         if(difLong > -0.1 && difLong < 0.1 && difLati > -0.1 && difLati < 0.1){
             NSLog("ok")

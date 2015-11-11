@@ -22,7 +22,10 @@ class ViewController_edit: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+     
+        /*画面遷移するときの関数
+        performSegueWithIdentifier("showMemo",sender: nil)
+        */
     }
 /*
     //ボタンとかの宣言
