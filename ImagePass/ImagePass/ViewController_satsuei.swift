@@ -101,8 +101,8 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         
         var region = map.region ;
         region.center = location ;
-        region.span.latitudeDelta = 0.9 ;
-        region.span.longitudeDelta = 0.9 ;
+        region.span.latitudeDelta = 0.05 ;
+        region.span.longitudeDelta = 0.05 ;
         
         map.mapType = MKMapType.Standard ;
       
