@@ -41,8 +41,9 @@ class ViewController_etsuran: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view, typically from a nib.
-        
-        ////////////////////////////////////////////////////////////////////
+    
+        /*
+        ///////////////////////////////////////////////////////////////////
         //閲覧画面の初期化処理．AppDelegate.swiftに定義されているIdを見て，新規作成・既存ファイル閲覧を判断
         //Id=""のとき，新規作成
         //Id="hogehoge"のとき，既存のファイルを開く．
@@ -66,10 +67,14 @@ class ViewController_etsuran: UIViewController {
                 MoveView("Main") ;
             }
             MoveView("edit") ;
-        }
+        }*/
 
     }
-
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 
 
     
@@ -78,7 +83,7 @@ class ViewController_etsuran: UIViewController {
     @IBAction func PushBackButton(sender: AnyObject) {
         MoveView("Main");
     }
-*/
+
     //Cameraボタンが押されたとき
     /*@IBAction func pushCamaraButton(sender: AnyObject) {
         MoveView("satsuei") ;
@@ -156,12 +161,9 @@ class ViewController_etsuran: UIViewController {
         }
         
     }
-    
+    */
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
 
     
 }

@@ -27,6 +27,18 @@ class ViewController_edit: UIViewController {
         performSegueWithIdentifier("showMemo",sender: nil)
         */
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 /*
     //ボタンとかの宣言
     @IBOutlet weak var SaveButton: UIButton!

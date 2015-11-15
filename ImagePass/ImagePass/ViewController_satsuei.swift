@@ -111,16 +111,6 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         // 座標を設定.
         myPin.coordinate = location
 
-        /*
-        
-        // タイトルを設定.
-        myPin.title = "タイトル"
-        
-        // サブタイトルを設定.
-        myPin.subtitle = "サブタイトル"
-        
-        */
-
         // MapViewにピンを追加.
         map.addAnnotation(myPin)
         
