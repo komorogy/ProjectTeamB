@@ -10,11 +10,12 @@ import UIKit
 
 class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDelegate{
     
-    //ひとまず画面遷移用だけ形になるようにフラグを作成　マッチング画面を通ればtrueになる
-    private var flg: Bool = false
-    
     // storyboardのtableviewを宣言
     @IBOutlet weak var tableView: UITableView!
+    
+    // appdelegate取得
+    let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var flg: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         // tableviewの紐付け
         tableView.delegate = self
         tableView.dataSource = self
+        flg = appdele.flg == nil ? false : appdele.flg
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,8 +31,23 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         // Dispose of any resources that can be recreated.
     }
     
+    // 他画面から戻ってきたとき
+    override func viewWillAppear(animated: Bool) {
+        // セルの選択状態を解除する
+        if let indexPath = tableView.indexPathForSelectedRow{
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        }
+        
+        // flg取得
+        flg = appdele.flg == nil ? false : appdele.flg
+    }
+    
     // セルに表示するテキスト(実際はアプリに保存されているファイル)
-    let texts = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    let texts = ["Sunday", "Monday", "Tuesday","たいとる"]
+    
+//    let memo1 = ["メモのタイトル", "本文","2015", 136.9, 35.8];
+//    let memo2:NSArray = ["メモのタイトル", "本文", 136.9, 35.8];
+//    let memo3:NSArray = ["メモのタイトル", "本文", 136.9, 35.8];
     
     // セルの行数を指定する
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,9 +56,28 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     
     // 各セルの内容を設定する(現状は、配列textsの文字列をひとつずつ表示しているだけ)
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
-        cell.textLabel!.text = texts[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell",forIndexPath: indexPath)
+        
+        // セルが選択されたときの背景色の設定
+        let cellSelectedView = UIView()
+        cellSelectedView.backgroundColor = UIColor.greenColor()//ださいから他の色探そう
+        cell.selectedBackgroundView = cellSelectedView
+        
+        // tag番号1 : タイトル
+        let memoTitle = tableView.viewWithTag(1) as! UILabel
+        memoTitle.text = texts[indexPath.row]
+        
+        
+        // tag番号2 : サブタイトル(作成日時とか)
+        let memoSub = tableView.viewWithTag(2) as! UILabel
+        memoSub.text = texts[indexPath.row]
+        
+        // 空白行のseparatorを消す
+        let v = UIView(frame: CGRectZero)
+        v.backgroundColor = UIColor.clearColor()
+        tableView.tableFooterView = v
+        tableView.tableHeaderView = v
         
         return cell
     }
@@ -58,10 +94,10 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         *  -> 鍵がかかっていればマッチング画面へ
         *  -> 鍵がかかっていなければ閲覧画面へ
         */
-        
+    
         // 閲覧画面へ遷移するために Segue を呼び出す
         if (flg) {
-            performSegueWithIdentifier("showMemo",sender: nil)
+            performSegueWithIdentifier("showEtsuran",sender: nil)
         }
         else if (!flg) {
         // matching画面へ遷移するために Segue を呼び出す
@@ -69,30 +105,6 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         }
         
     }
-    
-    func changeFlg(sentflg: Bool){
-        flg = sentflg
-    }
-    
-    
-//    //unWind
-//    @IBAction func exitToMain(segue: UIStoryboardSegue)
-//    {
-//        /* -----------------------------------------------------------------------
-//            画面遷移を成功させるために、
-//            ここでflgの書き換えをして、セルを選択した時にflgを見て遷移先を選ぶようにしています
-//            実際はここでの処理は必要なく、セル選択時にディレクトリを見に行って遷移先を判断する
-//           ----------------------------------------------------------------------- */
-//        
-//        //画面遷移を分けるために、マッチング画面のOpenボタンで帰ってきた場合、鍵解除ということにしている
-//        if(segue.identifier == "openMemo"){
-//            self.flg = true
-//        }
-//        //画面遷移を分けるために、鍵設定画面のボタンで帰ってきた場合、施錠ということにしている
-//        else if(segue.identifier == "setGPS"){
-//            self.flg = false
-//        }
-//    }
 
 }
 

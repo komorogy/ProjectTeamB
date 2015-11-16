@@ -16,20 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //画面間のパラメータ用の変数
     var Id: String!
-
+    
+    //var targetedMemo:Dictionary = ["title":"", "text":"","date":"","latitude":0,"longtitue":0]
+    
+    //マッチング成功でtrueにかきかえる
+    var flg: Bool!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        
-        // 初期画面のstoryboard(Main)とその中のinitialに設定されているViewControllerを取得
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//        let mainViewController: UIViewController = storyboard.instantiateInitialViewController() as UIViewController! ;
-//        
-//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//        self.navigationController = UINavigationController(rootViewController: mainViewController)
-//        
-//        self.window?.rootViewController = navigationController
-//        self.window?.makeKeyAndVisible()
         return true
     }
 

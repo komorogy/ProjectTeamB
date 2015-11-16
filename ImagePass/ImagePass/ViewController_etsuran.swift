@@ -20,22 +20,12 @@ import UIKit
 class ViewController_etsuran: UIViewController {
 
     // AppDelegateのインスタンス化
-//    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
+    //let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     //アプリケーションが自由にできるDocumentディレクトリのパス
     let rootDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String;
     
     // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
     let fileManager:NSFileManager = NSFileManager.defaultManager() ;
-/*
-    
-    //ボタンとかの宣言
-    @IBOutlet weak var BackButton: UIButton!
-
-    @IBOutlet weak var CameraButton: UIButton!
-    
-    @IBOutlet weak var TextViewer: UITextView!
-*/
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +37,7 @@ class ViewController_etsuran: UIViewController {
         //Id=""のとき，新規作成
         //Id="hogehoge"のとき，既存のファイルを開く．
         ////////////////////////////////////////////////////////////////////
-/*        BackButton.setTitle("Back", forState: UIControlState.Normal) ;
-        CameraButton.setTitle("Camera", forState: UIControlState.Normal) ;
+/*        
         TextViewer.text="test" ;
 */
         
@@ -70,21 +59,12 @@ class ViewController_etsuran: UIViewController {
 
     }
 
-
-
-    
-/*
-    //Backボタンが押されたとき
-    @IBAction func PushBackButton(sender: AnyObject) {
-        MoveView("Main");
+    // もう一回カギかけて解錠画面にうつりたいとき用
+    @IBAction func ReLock(sender: AnyObject) {
+        let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appdele.flg = false
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
-*/
-    //Cameraボタンが押されたとき
-    /*@IBAction func pushCamaraButton(sender: AnyObject) {
-        MoveView("satsuei") ;
-    }*/
-
-        
     
     //IsExistDirectory(ID:String)->Bool : "rootDirectory/ID"というディレクトリが存在するか確認する．
     private func IsExistDirectory(dataDirectory:String)->Bool{

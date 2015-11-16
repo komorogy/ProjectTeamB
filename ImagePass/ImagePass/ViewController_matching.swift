@@ -71,6 +71,8 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 仮ボタン　解錠と仮定
     @IBAction func OpenButton(sender: AnyObject) {
+        let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appdele.flg = true
         self.Closemodal(sender)
     }
     
