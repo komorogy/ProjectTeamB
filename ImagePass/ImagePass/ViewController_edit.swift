@@ -17,7 +17,7 @@ import UIKit
 // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 */
-class ViewController_edit: UIViewController {
+class ViewController_edit: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,20 +39,22 @@ class ViewController_edit: UIViewController {
     
     
     
-/*
+
     //ボタンとかの宣言
-    @IBOutlet weak var SaveButton: UIButton!
-    @IBOutlet weak var BackButton: UIButton!
+    
+    //@IBOutlet weak var BackButton: UIButton!
     @IBOutlet weak var TextEditer: UITextView!
     @IBOutlet weak var myTitle: UITextField!
     
+
+
     //ボタンアクション．
     @IBAction func PushSaveButton(sender: AnyObject) {
         
         //メモの保存処理をここに書く．
-        MoveView("etsuran") ;
+        //MoveView("etsuran") ;
     }
-    
+/*
     @IBAction func PushBackButton(sender: AnyObject) {
         //保存処理なしで，閲覧画面に戻る．
         MoveView("etsuran") ;
@@ -61,6 +63,17 @@ class ViewController_edit: UIViewController {
     @IBAction func pushTitle(sender: AnyObject) {
     }
 */
+    
+    // 画面タップしたらキーボード閉じる　←閉じない
+    @IBAction func tapScreen(sender: AnyObject) {
+        self.view.endEditing(true)
+    }
+    
+    // returnキー押下でキーボード閉じる　←閉じない
+    func textFieldShouldReturn(textField: UITextField!) -> Bool{
+        textField.resignFirstResponder()
+        return true
+    }
     
     //MoveView(ViewName:String) : 画面遷移する関数
     private func MoveView(ViewName:String){

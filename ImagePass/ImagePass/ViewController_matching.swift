@@ -13,6 +13,9 @@ import Darwin
 
 class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
+    // AppDelegateのやつ
+    let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     // 定数
     let PAGE_NAME: String = "unlock";// ページ名
     //let ERR_LIMIT: Int = 100;// GPS照合失敗回数上限
@@ -77,9 +80,9 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         
         
         // 画像
-        // 最初は東西南北だけわかる画像。
+        // 最初は東西南北だけわかる画像。 ←ごめん意図が汲み取れなくて間違った画像をつくってしまった(西村)
         // コンパスの値が取れたら矢印に帰る
-        directionImage = UIImage(named: "sample.jpeg")!
+        directionImage = UIImage(named: "sample.png")!
         
         // 距離の初期表示
         // 計算中みたいなテキスト
@@ -124,7 +127,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 仮ボタン　解錠と仮定
     @IBAction func OpenButton(sender: AnyObject) {
-        let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        // フラグ書き換え
         appdele.flg = true
         self.Closemodal(sender)
     }
@@ -189,8 +192,9 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         debug(newHeading.magneticHeading);
         
         // コンパスの値が初めてとれたときは画像を矢印にする
+        // ↓とりあえず仮で画像追加したんだけど大きさどうすればいいかとかわかってない 笑 (西村)
         if(noCompass){
-            directionImage = UIImage(named: "yajirusi.jpeg")!
+            directionImage = UIImage(named: "yajirushi.png")!
         }
         noCompass = false;
         

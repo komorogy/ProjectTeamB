@@ -20,7 +20,7 @@ import UIKit
 class ViewController_etsuran: UIViewController {
 
     // AppDelegateのインスタンス化
-//    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
+    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
     //アプリケーションが自由にできるDocumentディレクトリのパス
     let rootDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String;
     
@@ -76,8 +76,11 @@ class ViewController_etsuran: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // もう一回カギをかける デバッグ用につけといた
+    @IBAction func reLock(sender: AnyObject) {
+        appDelegate.flg = false
+        self.navigationController?.popViewControllerAnimated(true)    }
 
-    
 /*
     //Backボタンが押されたとき
     @IBAction func PushBackButton(sender: AnyObject) {

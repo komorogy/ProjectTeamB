@@ -42,7 +42,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         flg = appdele.flg == nil ? false : appdele.flg
     }
     
-    // セルに表示するテキスト(実際はアプリに保存されているファイル)
+    // セルに表示するテキスト(実際はアプリに保存されているファイルのタイトルの配列)
     let texts = ["Sunday", "Monday", "Tuesday","たいとる"]
     
 //    let memo1 = ["メモのタイトル", "本文","2015", 136.9, 35.8];

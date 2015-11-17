@@ -85,16 +85,6 @@
                     <view key="view" contentMode="scaleToFill" id="Kcw-oY-10c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81K-N7-lDm">
-                                <rect key="frame" x="141" y="269" width="38" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Open"/>
-                                <connections>
-                                    <action selector="OpenButton:" destination="xVU-8i-Qzk" eventType="touchUpInside" id="nox-8h-gwe"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -102,6 +92,11 @@
                         <barButtonItem key="leftBarButtonItem" title="back" id="ceG-iA-FdV">
                             <connections>
                                 <action selector="BackButton:" destination="xVU-8i-Qzk" id="BCP-iy-bRK"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Open" id="sdW-eQ-x8K">
+                            <connections>
+                                <action selector="OpenButton:" destination="xVU-8i-Qzk" id="8RG-g5-by9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -114,7 +109,7 @@
         <!--View Controller edit-->
         <scene sceneID="Pdk-bf-tA0">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="aBj-IA-DG7" customClass="ViewController_edit" customModule="ImagePass" sceneMemberID="viewController">
+                <viewController id="aBj-IA-DG7" customClass="ViewController_edit" customModule="ImagePass" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IEn-gV-j2C"/>
                         <viewControllerLayoutGuide type="bottom" id="PH9-x2-pEx"/>
@@ -123,33 +118,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2YY-x4-mmD">
-                                <rect key="frame" x="77" y="72" width="167" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="タイトル" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2YY-x4-mmD">
+                                <rect key="frame" x="35" y="85" width="250" height="30"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Luk-LS-ybZ">
-                                <rect key="frame" x="0.0" y="110" width="320" height="458"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="ここにテキスト" translatesAutoresizingMaskIntoConstraints="NO" id="Luk-LS-ybZ">
+                                <rect key="frame" x="35" y="130" width="250" height="150"/>
                                 <animations/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.84705882352941175" green="0.92156862745098034" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="8fN-if-Mwi">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="eeE-NL-ELN">
                             <connections>
+                                <action selector="PushSaveButton:" destination="aBj-IA-DG7" id="8cB-QE-GiI"/>
                                 <segue destination="F3O-Ic-n1F" kind="presentation" id="PlA-LV-7dg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="TextEditer" destination="Luk-LS-ybZ" id="sLZ-RJ-0KU"/>
+                        <outlet property="myTitle" destination="2YY-x4-mmD" id="LhK-e0-qCz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76Z-l0-VFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="kgA-hI-48r">
+                    <connections>
+                        <action selector="tapScreen:" destination="aBj-IA-DG7" id="Ej6-TA-g9e"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="846" y="-675"/>
         </scene>
@@ -267,24 +274,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AKW-IO-QR1">
-                                <rect key="frame" x="77" y="72" width="167" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nh0-Rx-vvv">
-                                <rect key="frame" x="0.0" y="110" width="320" height="458"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タイトル" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPW-KW-lL5">
+                                <rect key="frame" x="35" y="85" width="250" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="ここにテキスト" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cot-bg-gfS">
+                                <rect key="frame" x="35" y="130" width="250" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.84705882349999995" green="0.92156862750000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="RZC-Yw-92p">
                         <barButtonItem key="rightBarButtonItem" title="lock" id="TDd-bS-8mX">
                             <connections>
-                                <action selector="ReLock:" destination="rbU-Pv-GCK" id="oz3-fg-e2d"/>
+                                <action selector="reLock:" destination="rbU-Pv-GCK" id="4zl-EU-tQ5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
