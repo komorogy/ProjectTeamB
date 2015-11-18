@@ -27,9 +27,15 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     
     let KEY = "KEYForNSUD" ;
     
-    var data : [String] = ["","","",""] ;
+    var data  = ["","","","",""] ;
+    
+    var dataArray : NSMutableArray = NSMutableArray();
     
     var myPin: MKPointAnnotation = MKPointAnnotation()
+    
+    
+    @IBOutlet weak var navigation: UILabel!
+    
     
     //地図のview宣言
     @IBOutlet weak var map: MKMapView!
@@ -72,11 +78,48 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     @IBAction func SetGPSButton(sender: AnyObject) {
         
         //アラートで確認後、データの保存処理
+        dataArray = NSUD.objectForKey(KEY) as! NSMutableArray;
+        
         data[2] = String(myPin.coordinate.latitude);
         data[3] = String(myPin.coordinate.longitude);
+        data[4] = "20151118" ;
         
+        print(dataArray) ;
         print(data) ;
+        
+        
+        //NSMutableArray にaddできない．ググる
+        //dataArray.addObjectsFromArray(data)
+        
+      
         //
+        
+        NSUD.setObject(dataArray, forKey: KEY) ;
+        
+        for i in dataArray {
+            print(i[0] as! String) ;
+        }
+            
+        /*
+        var test = NSUD.objectForKey(KEY) as! NSMutableArray;
+        var test2 = test[0];
+        
+        print(test2[0]) ;
+        print(test2[1]) ;
+        print(test2[2]) ;
+        print(test2[3]) ;
+        print(test2[4]) ;
+        
+        
+        var test2 = test[1];
+        
+        print(test2[0]) ;
+        print(test2[1]) ;
+        print(test2[2]) ;
+        print(test2[3]) ;
+        print(test2[4]) ;
+        */
+        
         self.Closemodal(sender)
     }
     

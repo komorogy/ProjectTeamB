@@ -19,7 +19,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     // 定数
     let PAGE_NAME: String = "unlock";// ページ名
     //let ERR_LIMIT: Int = 100;// GPS照合失敗回数上限
-    let INTERVAL = 3.0;// GPS取得間隔
+    let INTERVAL = 0.01;// GPS取得間隔 メートル
     let CORRECT_RANGE = 100.0;// 解錠範囲 メートルで指定できる
     let PI = 3.141592653589;// 円周率
     // 最終的な返却値
@@ -32,10 +32,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 矢印の画像
     var directionImage: UIImage!;// = UIImage(named: "sample.jpeg")!
-    
+    // 計算中みたいなテキスト
+    let myRotateView:UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
     
     var lm: CLLocationManager!
     
+    @IBOutlet weak var textDistance: UILabel!
     // 現在地
     var currentLocation: CLLocation!;
     // 目標地点
@@ -63,7 +65,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         debug("page loaded");
         // var memo : objc_object!;// 指定されたメモのデータが入ってると想定
         // var memo = { title: "メモのタイトル", text: "メモ本文", latitude: 1369.9, longtitue: 35.8}
-        var memo = ["メモのタイトル", "本文", "136.9", "35.8"];
+        var memo = ["メモのタイトル", "本文", "35.8","136.9"];
   
         /**
          * memo = { title: メモのタイトル, text: メモ本文, latitude: 緯度, longtitue: 経度}
@@ -73,7 +75,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         
        
         // 目標地点をもらった情報で設定する
-        goalLocation = CLLocation(latitude: Double(memo[3])!, longitude: Double(memo[2])!);
+        goalLocation = CLLocation(latitude: Double(memo[2])!, longitude: Double(memo[3])!);
         
         // 矢印の方向を0にする
         goalDirection = 0.0;
@@ -83,13 +85,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 最初は東西南北だけわかる画像。 ←ごめん意図が汲み取れなくて間違った画像をつくってしまった(西村)
         // コンパスの値が取れたら矢印に帰る
         directionImage = UIImage(named: "sample.png")!
-        
+        myRotateView.contentMode = UIViewContentMode.ScaleAspectFill
         // 距離の初期表示
-        // 計算中みたいなテキスト
         
         // 矢印の表示
         // 画像を回転する.
-        let myRotateView:UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
+        //let myRotateView:UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
         // UIImageViewに画像を設定する.
         myRotateView.image = directionImage
         // radianで回転角度を指定(30度)する.
@@ -113,7 +114,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 位置情報の精度を指定．任意，
         lm.desiredAccuracy = kCLLocationAccuracyBest
         // 位置情報取得間隔を指定．指定した値（メートル）移動したら位置情報を更新する．任意．
-        lm.distanceFilter = CLLocationDistance(INTERVAL);// 時間にする
+        lm.distanceFilter = CLLocationDistance(INTERVAL);// 時間にする ないかも
         
         // GPSの使用を開始する
         lm.startUpdatingLocation()
@@ -142,12 +143,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation){
         debug("get GPS");
         // 取得した緯度がnewLocation.coordinate.longitudeにDoubleで格納されている
-        currentLocation = CLLocation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude);
+        //currentLocation = CLLocation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude);
         
-        debug(currentLocation);
+        debug(newLocation);
         
         // 目標のGPSと現在地との差
-        var distanceToGoal = currentLocation.distanceFromLocation(goalLocation);
+        var distanceToGoal = newLocation.distanceFromLocation(goalLocation);
         
         if( distanceToGoal < CORRECT_RANGE){
             debug("succeeded to unlock!!!!!!")
@@ -176,7 +177,9 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             
             // 距離と方向を表示
             debug(distanceToGoal);
-            // textDistance.text = String(format:"%f m", distanceToGoal);
+            textDistance.text = String(format:"%f m", distanceToGoal);
+            
+            
             
             
             
@@ -224,6 +227,9 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             // 負だったら正の表現値にする
             goalDirection = goalDirection + 360.0;//
         }
+        let angle:CGFloat = CGFloat((goalDirection * M_PI) / 180.0)
+        // 回転用のアフィン行列を生成する.
+        myRotateView.transform = CGAffineTransformMakeRotation(angle)
     }
 
     /*位置情報取得失敗時に実行される関数 　多分コンパスも*/

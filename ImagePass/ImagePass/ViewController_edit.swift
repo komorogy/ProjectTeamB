@@ -36,7 +36,7 @@ class ViewController_edit: UIViewController{
         //print(navigationController) ;
         let viewController = navigationController.topViewController as! ViewController_satsuei ;
         
-        viewController.data = ["title",TextEditer.text,"",""] ;
+        viewController.data = ["title",TextEditer.text,"","",""] ;
         
     }
     
