@@ -30,7 +30,15 @@ class ViewController_edit: UIViewController{
     
     
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("OK!!!!") ;
+        let navigationController = segue.destinationViewController as! UINavigationController;
+        //print(navigationController) ;
+        let viewController = navigationController.topViewController as! ViewController_satsuei ;
+        
+        viewController.data = ["title",TextEditer.text,"",""] ;
+        
+    }
     
     
     
@@ -49,11 +57,10 @@ class ViewController_edit: UIViewController{
 
 
     //ボタンアクション．
-    @IBAction func PushSaveButton(sender: AnyObject) {
-        
+    /*@IBAction func PushSaveButton(sender: AnyObject) {
         //メモの保存処理をここに書く．
         //MoveView("etsuran") ;
-    }
+    }*/
 /*
     @IBAction func PushBackButton(sender: AnyObject) {
         //保存処理なしで，閲覧画面に戻る．

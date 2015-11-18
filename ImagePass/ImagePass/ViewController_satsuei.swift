@@ -19,8 +19,18 @@ import MapKit
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 
 
+
+
 class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
 
+    let NSUD = NSUserDefaults() ;
+    
+    let KEY = "KEYForNSUD" ;
+    
+    var data : [String] = ["","","",""] ;
+    
+    var myPin: MKPointAnnotation = MKPointAnnotation()
+    
     //地図のview宣言
     @IBOutlet weak var map: MKMapView!
     //位置情報を取得するときに呼ぶらしい。
@@ -41,8 +51,11 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         locationManager.startUpdatingLocation() ;
   
         
-
+        //長押し検知のため，UI設定．ストーリーボードで出来る気がする．
+        var longPressDetector : UILongPressGestureRecognizer = UILongPressGestureRecognizer() ;
+        longPressDetector.addTarget(self, action: "recognizeLongPress:") ;
         
+        map.addGestureRecognizer(longPressDetector) ;
         
         /*let location = CLLocationCoordinate2DMake(33.564, 139.930531) ;
         let span = MKCoordinateSpanMake(1.0, 1.0) ;
@@ -59,7 +72,10 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     @IBAction func SetGPSButton(sender: AnyObject) {
         
         //アラートで確認後、データの保存処理
+        data[2] = String(myPin.coordinate.latitude);
+        data[3] = String(myPin.coordinate.longitude);
         
+        print(data) ;
         //
         self.Closemodal(sender)
     }
@@ -69,7 +85,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         self.dismissViewControllerAnimated(true , completion: nil)
     }
     
-    
+   /*
     //MoveView(ViewName:String) : 画面遷移する関数
     private func MoveView(ViewName:String){
         
@@ -88,7 +104,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
             break ;
         }
         
-    }
+    }*/
     
     //位置情報取得成功時に呼ばれる関数
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
@@ -105,15 +121,18 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         //表示する地図の中心を現在地に設定
         map.setCenterCoordinate(location, animated: true) ;
         
-        //ピンを立てる処理
-        var myPin: MKPointAnnotation = MKPointAnnotation()
-        
+        //ピンを立てる処理///////////////////////
+
         // 座標を設定.
         myPin.coordinate = location
 
+        let title : String = String(location.latitude) + "," + String(location.longitude);
+        
+        myPin.title = title;
+        
         // MapViewにピンを追加.
         map.addAnnotation(myPin)
-        
+        //////////////////////////////////////
         
         var region = map.region ;
         region.center = location ;
@@ -135,6 +154,45 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         alert.addButtonWithTitle("OK") ;
         alert.show() ;
     }
+    
+    //長押しされた時のアクション
+    func recognizeLongPress(sender:UILongPressGestureRecognizer){
+        if (sender.state != UIGestureRecognizerState.Began){
+            return ;
+        }
+        
+        //長押しされた場所を取得
+        let point = sender.locationInView(map) ;
+        
+        
+        let location : CLLocationCoordinate2D = map.convertPoint(point, toCoordinateFromView: map) ;
+        
+        ///////////////////////////////////
+        let myPin : MKPointAnnotation = MKPointAnnotation() ;
+        
+        myPin.coordinate = location ;
+        
+        let title = String(location.latitude) + "," + String(location.longitude) ;
+        
+        myPin.title = title ;
+        
+        map.addAnnotation(myPin) ;
+        ////////////////////////////////////
+        print(location.latitude) ;
+        print(location.longitude) ;
+        
+    }
+    
+    //addAnotationした時に呼ばれる
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        var myPinView : MKPinAnnotationView! ;
+        
+        myPinView.annotation = annotation ;
+        
+        return myPinView ;
+    }
+    
     
     
     override func didReceiveMemoryWarning() {
