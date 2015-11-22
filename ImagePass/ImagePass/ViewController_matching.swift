@@ -19,25 +19,33 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     // 定数
     let PAGE_NAME: String = "unlock";// ページ名
     //let ERR_LIMIT: Int = 100;// GPS照合失敗回数上限
-    let INTERVAL = 0.01;// GPS取得間隔 メートル
+    //let INTERVAL = 0.01;// GPS取得間隔 メートル
     let CORRECT_RANGE = 100.0;// 解錠範囲 メートルで指定できる
-    let PI = 3.141592653589;// 円周率
+    //let PI = 3.141592653589;// 円周率
     // 最終的な返却値
-    let SUCCESS: Bool = true;// 解錠成功時に返却する値
-    let FAILED: Bool = false;// 解錠失敗時に返却する値
+    //let SUCCESS: Bool = true;// 解錠成功時に返却する値
+    //let FAILED: Bool = false;// 解錠失敗時に返却する値
     
     
     // コンパスの値が取得できていない間true
     var noCompass: Bool = true;
     
+    // メモ取得用
+    let NSUD = NSUserDefaults();
+    let KEY = "KEYForNSUD";
+    var memo: NSMutableArray = NSMutableArray();
+    
+    
     // 矢印の画像
     var directionImage: UIImage!;// = UIImage(named: "sample.jpeg")!
-    // 計算中みたいなテキスト
     let myRotateView:UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
     
     var lm: CLLocationManager!
     
+    // 目的地までの距離表示用ラベル
     @IBOutlet weak var textDistance: UILabel!
+    
+    
     // 現在地
     var currentLocation: CLLocation!;
     // 目標地点
@@ -53,29 +61,27 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     
     // ▼廃止だけど一応
-    /*　
+    /*
     // タイムアウト
     // GPS照合失敗回数
     var errCnt: Int = 0;
     */
     // ▲廃止だけど一応
-
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         debug("page loaded");
         // var memo : objc_object!;// 指定されたメモのデータが入ってると想定
         // var memo = { title: "メモのタイトル", text: "メモ本文", latitude: 1369.9, longtitue: 35.8}
-        var memo = ["メモのタイトル", "本文", "35.8","136.9"];
-  
-        /**
-         * memo = { title: メモのタイトル, text: メモ本文, latitude: 緯度, longtitue: 経度}
-         * あるいはmemo = [メモのタイトル, 本文, 緯度, 経度];
-         */
+        //var memo = ["メモのタイトル", "本文", "35.8","136.9"];
+        memo = NSUD.objectForKey(KEY) as! NSMutableArray;
         
         
-       
+        
+        
+        
         // 目標地点をもらった情報で設定する
-        goalLocation = CLLocation(latitude: Double(memo[2])!, longitude: Double(memo[3])!);
+        goalLocation = CLLocation(latitude: (memo[2] as? Double)!, longitude: (memo[3] as? Double)!);
         
         // 矢印の方向を0にする
         goalDirection = 0.0;
@@ -114,7 +120,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 位置情報の精度を指定．任意，
         lm.desiredAccuracy = kCLLocationAccuracyBest
         // 位置情報取得間隔を指定．指定した値（メートル）移動したら位置情報を更新する．任意．
-        lm.distanceFilter = CLLocationDistance(INTERVAL);// 時間にする ないかも
+        //lm.distanceFilter = CLLocationDistance(INTERVAL);// 時間にする ないかも
         
         // GPSの使用を開始する
         lm.startUpdatingLocation()
@@ -143,47 +149,53 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation){
         debug("get GPS");
         // 取得した緯度がnewLocation.coordinate.longitudeにDoubleで格納されている
-        //currentLocation = CLLocation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude);
+        // コンパスに渡す用
+        currentLocation = CLLocation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude);
         
         debug(newLocation);
         
         // 目標のGPSと現在地との差
-        var distanceToGoal = newLocation.distanceFromLocation(goalLocation);
+        let distanceToGoal = newLocation.distanceFromLocation(goalLocation);
         
         if( distanceToGoal < CORRECT_RANGE){
             debug("succeeded to unlock!!!!!!")
-            
             
             //GPSの使用を停止する．停止しない限りGPSは実行され，指定間隔で更新され続ける．
             lm.stopUpdatingLocation()
             lm.stopUpdatingHeading()
             // 画面遷移用のボタン表示
             
-            // SUCCESS を渡す
-            
+            // 解錠
+            OpenButton(0);// 引数なにかわからない
             
         } else {
             debug("not yet succeeded to unlock");
-
+            
             // ▼廃止だけど一応
             /*
             // タイムアウト
             if(errCnt++ > ERR_LIMIT){
-                ;// アラート
-                ;// 一覧に戻る
+            ;// アラート
+            ;// 一覧に戻る
             }
             */
             // ▲廃止だけど一応
             
             // 距離と方向を表示
             debug(distanceToGoal);
-            textDistance.text = String(format:"%f m", distanceToGoal);
             
-            
-            
-            
+            if(distanceToGoal > 1000){
+                textDistance.text = String(format:"%f km", round(distanceToGoal / 1000));
+            } else {
+                textDistance.text = String(format:"%f m", round(distanceToGoal));
+            }
             
             debug("retrying...");
+            
+            // なんとなく
+            sleep(1);
+            lm.startUpdatingLocation();
+            
         }
     }
     
@@ -213,13 +225,15 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         let lng2 = goalLocation.coordinate.longitude;
         let lat2 = goalLocation.coordinate.latitude;
         
-        let Y = cos(lng2 * PI / 180) * sin(lat2 * PI / 180 - lat1 * PI / 180);
-        let X = cos(lng1 * PI / 180) * sin(lng2 * PI / 180) - sin(lng1 * PI / 180) * cos(lng2 * PI / 180) * cos(lat2 * PI / 180 - lat1 * PI / 180);
-        var dirE0 = 180 * atan2(Y, X) / PI; // 東向きが０度の方向
+        let Y = cos(lng2 * M_PI / 180) * sin(lat2 * M_PI / 180 - lat1 * M_PI / 180);
+        let X = cos(lng1 * M_PI / 180) * sin(lng2 * M_PI / 180) - sin(lng1 * M_PI / 180) * cos(lng2 * M_PI / 180) * cos(lat2 * M_PI / 180 - lat1 * M_PI / 180);
+        var dirE0 = 180 * atan2(Y, X) / M_PI; // 東向きが０度の方向
         if (dirE0 < 0) {
             dirE0 = dirE0 + 360; //0～360 にする。
         }
         dirN0 = (dirE0 + 90) % 360; //(dirE0+90)÷360の余りを出力 北向きが０度の方向
+        //dirN0 = (90 - dirE0) % 360;
+        //dirN0 = (dirE0 + 180) % 360;
         
         // 矢印の向き更新
         goalDirection = dirN0 - computerHeading;
@@ -231,11 +245,13 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 回転用のアフィン行列を生成する.
         myRotateView.transform = CGAffineTransformMakeRotation(angle)
     }
-
+    
     /*位置情報取得失敗時に実行される関数 　多分コンパスも*/
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         debug("failed to get GPS or heading");
         //debug(error.description);
+        // なんとなく
+        lm.startUpdatingLocation();
     }
     
     override func didReceiveMemoryWarning() {
