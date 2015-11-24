@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDelegate{
     
     // storyboardのtableviewを宣言
@@ -17,6 +18,14 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var flg: Bool = true
     
+    // メモ取得用
+    let NSUD = NSUserDefaults();
+    let KEY = "KEYForNSUD";
+    var memo: NSMutableArray = NSMutableArray();
+    
+    // セルに表示するテキスト（）
+    var texts :NSMutableArray = NSMutableArray() //["Sunday", "Monday", "Tuesday","たいとる"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.  
@@ -24,6 +33,16 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.delegate = self
         tableView.dataSource = self
         flg = appdele.flg == nil ? false : appdele.flg
+        
+        if((NSUD.objectForKey(KEY)) != nil){
+            print("+++")
+            memo = NSUD.objectForKey(KEY) as! NSMutableArray;
+            texts = memo
+            // for文を回して、タイトルのindex箇所だけを配列にしたい
+//            for item in memo{
+//            }
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,15 +59,17 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         
         // flg取得
         flg = appdele.flg == nil ? false : appdele.flg
+        
+        if((NSUD.objectForKey(KEY)) != nil){
+            print("+++")
+            memo = NSUD.objectForKey(KEY) as! NSMutableArray;
+            texts = memo
+            // テーブル再読込み
+            tableView.reloadData()
+        }
     }
     
-    // セルに表示するテキスト(実際はアプリに保存されているファイルのタイトルの配列)
-    let texts = ["Sunday", "Monday", "Tuesday","たいとる"]
-    
-//    let memo1 = ["メモのタイトル", "本文","2015", 136.9, 35.8];
-//    let memo2:NSArray = ["メモのタイトル", "本文", 136.9, 35.8];
-//    let memo3:NSArray = ["メモのタイトル", "本文", 136.9, 35.8];
-    
+  
     // セルの行数を指定する
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return texts.count //（実際はアプリに保存されている件数を返す）
@@ -66,12 +87,12 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         
         // tag番号1 : タイトル
         let memoTitle = tableView.viewWithTag(1) as! UILabel
-        memoTitle.text = texts[indexPath.row]
+        memoTitle.text = texts[indexPath.row] as? String
         
         
         // tag番号2 : サブタイトル(作成日時とか)
         let memoSub = tableView.viewWithTag(2) as! UILabel
-        memoSub.text = texts[indexPath.row]
+        memoSub.text = texts[indexPath.row] as? String
         
         // 空白行のseparatorを消す
         let v = UIView(frame: CGRectZero)
@@ -84,6 +105,17 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     
     //スワイプしてdelete(実際の削除は未実装)
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete{
+            print("delete")
+            // 削除
+            //texts.removeObject(indexPath.row)
+            NSUD.removeObjectForKey(KEY)
+            //NSUD.setObject(texts, forKey: KEY) ;
+            
+            // テーブル再読込み (これじゃ反映されない)
+            tableView.reloadData()
+        }
     }
     
     // Cell が選択された場合

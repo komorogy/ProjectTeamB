@@ -78,7 +78,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     @IBAction func SetGPSButton(sender: AnyObject) {
         
         //アラートで確認後、データの保存処理
-        dataArray = NSUD.objectForKey(KEY) as! NSMutableArray;
+        dataArray = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray; //NSUD.objectForKey(KEY) as! NSMutableArray;
         
         data[2] = String(myPin.coordinate.latitude);
         data[3] = String(myPin.coordinate.longitude);
@@ -89,17 +89,17 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         
         
         //NSMutableArray にaddできない．ググる
-        //dataArray.addObjectsFromArray(data)
-        
+        dataArray.addObjectsFromArray(data)
+        print(dataArray) ;
       
         //
-        
         NSUD.setObject(dataArray, forKey: KEY) ;
+        NSUD.synchronize()
         
-        for i in dataArray {
-            print(i[0] as! String) ;
-        }
-            
+//        for i in dataArray {
+//            print(i[0] as! String) ;
+//        }
+        
         /*
         var test = NSUD.objectForKey(KEY) as! NSMutableArray;
         var test2 = test[0];
