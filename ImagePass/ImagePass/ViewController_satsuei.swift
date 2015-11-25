@@ -78,18 +78,30 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     @IBAction func SetGPSButton(sender: AnyObject) {
         
         //アラートで確認後、データの保存処理
-        dataArray = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray; //NSUD.objectForKey(KEY) as! NSMutableArray;
+        if((NSUD.objectForKey(KEY)) != nil){
+            dataArray = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray; //NSUD.objectForKey(KEY) as! NSMutableArray;
+        }
         
-        data[2] = String(myPin.coordinate.latitude);
-        data[3] = String(myPin.coordinate.longitude);
-        data[4] = "20151118" ;
+        let dateFormatter = NSDateFormatter() ;
+        
+        data[2] = myPin.coordinate.latitude.description ;
+        data[3] = myPin.coordinate.longitude.description ;
+        
+        //日付取得．フォーマットは？
+        
+        dateFormatter.locale = NSLocale(localeIdentifier: "jp_JP") ;//日本の時刻を基準に
+        dateFormatter.dateFormat = "yyyyMMddHHmmss" ;//時刻形式はyyyymmddhhmmss
+        
+        let result = dateFormatter.stringFromDate(NSDate()) ;//resultにyyyymmddhhmmssを保存．
+        
+        data[4] = result ;
         
         print(dataArray) ;
         print(data) ;
         
         
         //NSMutableArray にaddできない．ググる
-        dataArray.addObjectsFromArray(data)
+        dataArray.addObject(data)
         print(dataArray) ;
       
         //
@@ -211,7 +223,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         let location : CLLocationCoordinate2D = map.convertPoint(point, toCoordinateFromView: map) ;
         
         ///////////////////////////////////
-        let myPin : MKPointAnnotation = MKPointAnnotation() ;
+        //let myPin : MKPointAnnotation = MKPointAnnotation() ;
         
         myPin.coordinate = location ;
         

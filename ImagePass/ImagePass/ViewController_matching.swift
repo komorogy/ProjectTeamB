@@ -33,7 +33,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     // メモ取得用
     let NSUD = NSUserDefaults();
     let KEY = "KEYForNSUD";
-    var memo: NSMutableArray = NSMutableArray();
+    var memo: NSArray = NSArray();
     
     
     // 矢印の画像
@@ -74,7 +74,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // var memo : objc_object!;// 指定されたメモのデータが入ってると想定
         // var memo = { title: "メモのタイトル", text: "メモ本文", latitude: 1369.9, longtitue: 35.8}
         //var memo = ["メモのタイトル", "本文", "35.8","136.9"];
-        memo = NSUD.objectForKey(KEY) as! NSMutableArray;
+        //memo = NSUD.objectForKey(KEY) as! NSMutableArray;
         
         
         

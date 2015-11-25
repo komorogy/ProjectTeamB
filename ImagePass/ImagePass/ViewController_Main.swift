@@ -26,6 +26,9 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     // セルに表示するテキスト（）
     var texts :NSMutableArray = NSMutableArray() //["Sunday", "Monday", "Tuesday","たいとる"]
     
+    // 渡すやつ
+    var watasu :NSArray = NSArray();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.  
@@ -37,10 +40,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         if((NSUD.objectForKey(KEY)) != nil){
             print("+++")
             memo = NSUD.objectForKey(KEY) as! NSMutableArray;
-            texts = memo
-            // for文を回して、タイトルのindex箇所だけを配列にしたい
-//            for item in memo{
-//            }
+            texts = memo[0] as! NSMutableArray
         }
         
     }
@@ -85,14 +85,16 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         cellSelectedView.backgroundColor = UIColor.greenColor()//ださいから他の色探そう
         cell.selectedBackgroundView = cellSelectedView
         
+        let hairetsu:NSArray = memo[indexPath.row] as! NSArray
+        
         // tag番号1 : タイトル
         let memoTitle = tableView.viewWithTag(1) as! UILabel
-        memoTitle.text = texts[indexPath.row] as? String
+        memoTitle.text = hairetsu[0] as? String
         
         
         // tag番号2 : サブタイトル(作成日時とか)
         let memoSub = tableView.viewWithTag(2) as! UILabel
-        memoSub.text = texts[indexPath.row] as? String
+        memoSub.text = hairetsu[4] as? String
         
         // 空白行のseparatorを消す
         let v = UIView(frame: CGRectZero)
@@ -109,9 +111,9 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         if editingStyle == UITableViewCellEditingStyle.Delete{
             print("delete")
             // 削除
-            //texts.removeObject(indexPath.row)
-            NSUD.removeObjectForKey(KEY)
-            //NSUD.setObject(texts, forKey: KEY) ;
+            texts.removeObject(indexPath.row)
+            //NSUD.removeObjectForKey(KEY)
+            NSUD.setObject(texts, forKey: KEY) ;
             
             // テーブル再読込み (これじゃ反映されない)
             tableView.reloadData()
@@ -126,6 +128,9 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         *  -> 鍵がかかっていればマッチング画面へ
         *  -> 鍵がかかっていなければ閲覧画面へ
         */
+        
+        // マッチングに渡す配列
+        watasu = texts[indexPath.row] as! NSArray
     
         // 閲覧画面へ遷移するために Segue を呼び出す
         if (flg) {
@@ -134,6 +139,18 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         else if (!flg) {
         // matching画面へ遷移するために Segue を呼び出す
             performSegueWithIdentifier("modalMatching",sender: nil)
+        }
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.destinationViewController.description == "ViewController_matching"){
+            print("OK!!!!") ;
+            let navigationController = segue.destinationViewController as! UINavigationController;
+            //print(navigationController) ;
+            let viewController = navigationController.topViewController as! ViewController_matching ;
+        
+            viewController.memo =  watasu;
         }
         
     }
