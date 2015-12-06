@@ -81,14 +81,17 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         
         
         // 目標地点をもらった情報で設定する
-        goalLocation = CLLocation(latitude: (memo[2] as? Double)!, longitude: (memo[3] as? Double)!);
+        let lati :Double = atof(memo[2] as! String)
+        let lon :Double = atof(memo[3] as! String)
+        goalLocation = CLLocation(latitude: lati, longitude: lon);
+//        goalLocation = CLLocation(latitude: (memo[2] as? Double)!, longitude: (memo[3] as? Double)!);
         
         // 矢印の方向を0にする
         goalDirection = 0.0;
         
         
         // 画像
-        // 最初は東西南北だけわかる画像。 ←ごめん意図が汲み取れなくて間違った画像をつくってしまった(西村)
+        // 最初は東西南北だけわかる画像
         // コンパスの値が取れたら矢印に帰る
         directionImage = UIImage(named: "sample.png")!
         myRotateView.contentMode = UIViewContentMode.ScaleAspectFill

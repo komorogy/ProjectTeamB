@@ -21,24 +21,27 @@ class ViewController_etsuran: UIViewController {
 
     // AppDelegateのインスタンス化
     let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
+    
+    @IBOutlet weak var myTitle: UILabel!
+    @IBOutlet weak var myTextView: UITextView!
+    
+    // メモ一覧で選択されたメモを保持する
+    var memo: NSArray = NSArray();
+    
     //アプリケーションが自由にできるDocumentディレクトリのパス
     let rootDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String;
     
     // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
     let fileManager:NSFileManager = NSFileManager.defaultManager() ;
-/*
-    
-    //ボタンとかの宣言
-    @IBOutlet weak var BackButton: UIButton!
-
-    @IBOutlet weak var CameraButton: UIButton!
-    
-    @IBOutlet weak var TextViewer: UITextView!
-*/
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if(memo.count > 0){
+            myTitle.text = memo[0] as? String
+            myTextView.text = memo[1] as? String
+        }
 
         // Do any additional setup after loading the view, typically from a nib.
     
@@ -54,8 +57,7 @@ class ViewController_etsuran: UIViewController {
 */
         
 //        let ID:String = appDelegate.Id ;
-//appDelegateを使うとビルドエラーが起こるので、暫定的にコメントアウトしました
-        let ID:String = ""; //処理がエラーにならないように書いただけ
+        let ID:String = "";
         
         var dataDirectory = rootDirectory ;
 
@@ -82,17 +84,6 @@ class ViewController_etsuran: UIViewController {
         self.navigationController?.popViewControllerAnimated(true)    }
 
 /*
-    //Backボタンが押されたとき
-    @IBAction func PushBackButton(sender: AnyObject) {
-        MoveView("Main");
-    }
-
-    //Cameraボタンが押されたとき
-    /*@IBAction func pushCamaraButton(sender: AnyObject) {
-        MoveView("satsuei") ;
-    }*/
-
-        
     
     //IsExistDirectory(ID:String)->Bool : "rootDirectory/ID"というディレクトリが存在するか確認する．
     private func IsExistDirectory(dataDirectory:String)->Bool{

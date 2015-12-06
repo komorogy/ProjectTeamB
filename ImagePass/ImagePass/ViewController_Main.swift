@@ -23,11 +23,24 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     let KEY = "KEYForNSUD";
     var memo: NSMutableArray = NSMutableArray();
     
-    // セルに表示するテキスト（）
-    var texts :NSMutableArray = NSMutableArray() //["Sunday", "Monday", "Tuesday","たいとる"]
-    
-    // 渡すやつ
+    // 別画面に渡すやつ
     var watasu :NSArray = NSArray();
+    
+    // appdelegateやNSUDを取得するメソッド
+    private func selectObj(){
+        flg = appdele.flg == nil ? false : appdele.flg
+        
+        if((NSUD.objectForKey(KEY)) != nil){
+            memo = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray;
+            print("got NSUD")
+        }
+        
+        tableView.reloadData()
+        //        // セルの選択状態を解除する
+        //        if let indexPath = tableView.indexPathForSelectedRow{
+        //            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        //        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,47 +48,26 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         // tableviewの紐付け
         tableView.delegate = self
         tableView.dataSource = self
-        flg = appdele.flg == nil ? false : appdele.flg
-        
-        if((NSUD.objectForKey(KEY)) != nil){
-            print("+++")
-            memo = NSUD.objectForKey(KEY) as! NSMutableArray;
-            texts = memo[0] as! NSMutableArray
-        }
         
     }
-    
+
+    override func viewWillAppear(animated: Bool) {
+        selectObj()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // 他画面から戻ってきたとき
-    override func viewWillAppear(animated: Bool) {
-        // セルの選択状態を解除する
-        if let indexPath = tableView.indexPathForSelectedRow{
-            tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        }
-        
-        // flg取得
-        flg = appdele.flg == nil ? false : appdele.flg
-        
-        if((NSUD.objectForKey(KEY)) != nil){
-            print("+++")
-            memo = NSUD.objectForKey(KEY) as! NSMutableArray;
-            texts = memo
-            // テーブル再読込み
-            tableView.reloadData()
-        }
-    }
-    
+
+
   
     // セルの行数を指定する
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return texts.count //（実際はアプリに保存されている件数を返す）
+        return memo.count
     }
     
-    // 各セルの内容を設定する(現状は、配列textsの文字列をひとつずつ表示しているだけ)
+    // 各セルの内容を設定する
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell",forIndexPath: indexPath)
@@ -105,18 +97,19 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         return cell
     }
     
-    //スワイプしてdelete(実際の削除は未実装)
+    //スワイプしてdelete
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.Delete{
-            print("delete")
+            print("delete indexNumber:" + String(indexPath.row))
+           
             // 削除
-            texts.removeObject(indexPath.row)
-            //NSUD.removeObjectForKey(KEY)
-            NSUD.setObject(texts, forKey: KEY) ;
+            memo.removeObjectAtIndex(indexPath.row)
+            NSUD.removeObjectForKey(KEY)
+            NSUD.setObject(memo, forKey: KEY) ;
             
-            // テーブル再読込み (これじゃ反映されない)
-            tableView.reloadData()
+            // テーブル再読込み
+            selectObj()
         }
     }
     
@@ -130,29 +123,45 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         */
         
         // マッチングに渡す配列
-        watasu = texts[indexPath.row] as! NSArray
+        watasu = memo[indexPath.row] as! NSArray
+        
+        // 画面遷移
+        jumpToNextView()
+    }
     
+    //画面遷移前の処理
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        
+        // マッチング画面遷移時は、選択されたセルの情報をViewController_matchingにセットする
+        if(segue.identifier == "modalMatching"){
+            let navigationController = segue.destinationViewController as! UINavigationController
+            print("segue's name : modalMatching")
+            let viewController = navigationController.topViewController as! ViewController_matching
+        
+            viewController.memo =  watasu
+        }
+            
+        if(segue.identifier == "showEtsuran"){
+            print("segue's name : showEtsuran")
+            let viewController = segue.destinationViewController as! ViewController_etsuran
+            
+            viewController.memo =  watasu
+        }
+        
+    }
+    
+    // 画面遷移
+    private func jumpToNextView(){
+        
         // 閲覧画面へ遷移するために Segue を呼び出す
         if (flg) {
             performSegueWithIdentifier("showEtsuran",sender: nil)
         }
         else if (!flg) {
-        // matching画面へ遷移するために Segue を呼び出す
+            // matching画面へ遷移するために Segue を呼び出す
             performSegueWithIdentifier("modalMatching",sender: nil)
         }
-        
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.destinationViewController.description == "ViewController_matching"){
-            print("OK!!!!") ;
-            let navigationController = segue.destinationViewController as! UINavigationController;
-            //print(navigationController) ;
-            let viewController = navigationController.topViewController as! ViewController_matching ;
-        
-            viewController.memo =  watasu;
-        }
-        
     }
 
 }
