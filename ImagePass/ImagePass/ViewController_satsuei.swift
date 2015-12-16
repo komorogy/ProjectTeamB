@@ -27,12 +27,14 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     
     let KEY = "KEYForNSUD" ;
     
-    var data  = ["","","","",""] ;
+    var data  = ["","","","","","1"] ; // data[5]=施錠フラグ(施錠:1 解錠:0) 作成時は必ず施錠
     
     var dataArray : NSMutableArray = NSMutableArray();
     
     var myPin: MKPointAnnotation = MKPointAnnotation()
     
+    // appdelegate取得
+    let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var navigation: UILabel!
     
@@ -74,10 +76,33 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         self.Closemodal(sender)
     }
     
-    // ナビゲーションバーにある仮ボタン GPSが設定されたと仮定
+    // ナビゲーションバーにあるGPSセットボタン
     @IBAction func SetGPSButton(sender: AnyObject) {
         
         //アラートで確認後、データの保存処理
+        
+        appdele.selectList()
+            
+        appdele.updateTargeted(2,update: myPin.coordinate.latitude.description)
+        appdele.updateTargeted(3,update: myPin.coordinate.longitude.description)
+            
+        let dateFormatter = NSDateFormatter() ;
+            //日付取得．フォーマットは？
+            
+        dateFormatter.locale = NSLocale(localeIdentifier: "jp_JP") ;//日本の時刻を基準に
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm" ;//時刻形式はyyyy-MM-dd HH:mm
+            
+        let result = dateFormatter.stringFromDate(NSDate()) ;//resultにyyyy-MM-dd HH:mmを保存．
+            
+        appdele.updateTargeted(4, update: result)
+        appdele.updateTargeted(5, update: "1")
+            
+        //メモ新規登録
+        appdele.addMemo()
+        appdele.addList()
+        
+        
+  /*
         if((NSUD.objectForKey(KEY)) != nil){
             dataArray = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray; //NSUD.objectForKey(KEY) as! NSMutableArray;
         }
@@ -90,7 +115,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         //日付取得．フォーマットは？
         
         dateFormatter.locale = NSLocale(localeIdentifier: "jp_JP") ;//日本の時刻を基準に
-        dateFormatter.dateFormat = "yyyyMMddHHmmss" ;//時刻形式はyyyymmddhhmmss
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm" ;//時刻形式はyyyymmddhhmmss
         
         let result = dateFormatter.stringFromDate(NSDate()) ;//resultにyyyymmddhhmmssを保存．
         
@@ -107,7 +132,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
         //
         NSUD.setObject(dataArray, forKey: KEY) ;
         NSUD.synchronize()
-        
+   */     
 //        for i in dataArray {
 //            print(i[0] as! String) ;
 //        }
@@ -137,6 +162,10 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     
     // モーダルを破棄する
     private func Closemodal(sender: AnyObject?){
+//        let viewController = ViewController_edit
+//            viewController.setFlg = true
+//        let viewController = ViewController_edit as! UINavigationController
+//        ViewController_edit.setFlg = true
         self.dismissViewControllerAnimated(true , completion: nil)
     }
     

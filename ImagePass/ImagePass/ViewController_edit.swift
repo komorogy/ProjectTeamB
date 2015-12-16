@@ -19,6 +19,11 @@ private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 */
 class ViewController_edit: UIViewController{
     
+    // appdelegate取得
+    let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    var setFlg:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,27 +31,31 @@ class ViewController_edit: UIViewController{
         /*画面遷移するときの関数
         performSegueWithIdentifier("showMemo",sender: nil)
         */
+
     }
     
-    
+    override func viewWillAppear(animated: Bool) {
+        if(setFlg){
+            navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
+        }
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("OK!!!!") ;
-        let navigationController = segue.destinationViewController as! UINavigationController;
-        //print(navigationController) ;
-        let viewController = navigationController.topViewController as! ViewController_satsuei ;
+//        let navigationController = segue.destinationViewController as! UINavigationController;
+//        //print(navigationController) ;
+//        let viewController = navigationController.topViewController as! ViewController_satsuei ;
+//        
+//        viewController.data[0] = myTitle.text! ;
+//        viewController.data[1] = TextEditer.text;
         
-        viewController.data = [myTitle.text!,TextEditer.text,"","",""] ;
-        
+
+        appdele.updateTargeted(0, update: myTitle.text!)
+        appdele.updateTargeted(1, update: TextEditer.text)
+        print(appdele.getTargeted())
     }
     
-    
-    
-    
-    
-    
-    
-    
+
 
     //ボタンとかの宣言
     
@@ -95,7 +104,6 @@ class ViewController_edit: UIViewController{
         }
 
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

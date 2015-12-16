@@ -16,7 +16,6 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     
     // appdelegate取得
     let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    var flg: Bool = true
     
     // メモ取得用
     let NSUD = NSUserDefaults();
@@ -26,14 +25,13 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     // 別画面に渡すやつ
     var watasu :NSArray = NSArray();
     
+    var logoImageView: UIImageView!
+    
     // appdelegateやNSUDを取得するメソッド
     private func selectObj(){
-        flg = appdele.flg == nil ? false : appdele.flg
         
-        if((NSUD.objectForKey(KEY)) != nil){
-            memo = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray;
-            print("got NSUD")
-        }
+        appdele.selectList()
+        memo = appdele.getMemoList()
         
         tableView.reloadData()
         //        // セルの選択状態を解除する
@@ -41,18 +39,55 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         //            tableView.deselectRowAtIndexPath(indexPath, animated: false)
         //        }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.  
+        // Do any additional setup after loading the view, typically from a nib.
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+        //imageView作成
+        self.logoImageView = UIImageView(frame: CGRectMake(0, 0, 320, 320))
+        //画面centerに
+        self.logoImageView.center = self.view.center
+        //logo設定
+        self.logoImageView.image = UIImage(named: "logo")
+        //viewに追加
+        self.view.addSubview(self.logoImageView)
+        
         // tableviewの紐付け
         tableView.delegate = self
         tableView.dataSource = self
         
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        //少し縮小するアニメーション
+        UIView.animateWithDuration(0.3,
+            delay: 1.0,
+            options: UIViewAnimationOptions.CurveEaseOut,
+            animations: { () in
+                self.logoImageView.transform = CGAffineTransformMakeScale(0.9, 0.9)
+            }, completion: { (Bool) in
+                
+        })
+        
+        //拡大させて、消えるアニメーション
+        UIView.animateWithDuration(0.2,
+            delay: 2.0,
+            options: UIViewAnimationOptions.CurveEaseOut,
+            animations: { () in
+                self.logoImageView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+                self.logoImageView.alpha = 0
+            }, completion: { (Bool) in
+                self.logoImageView.removeFromSuperview()
+        })
+    }
 
     override func viewWillAppear(animated: Bool) {
         selectObj()
+        if (appdele.getTargeted()[5] as! String == "0") {
+            performSegueWithIdentifier("showEtsuran",sender: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,7 +99,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
   
     // セルの行数を指定する
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memo.count
+        return appdele.getMemoList().count
     }
     
     // 各セルの内容を設定する
@@ -77,7 +112,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         cellSelectedView.backgroundColor = UIColor.greenColor()//ださいから他の色探そう
         cell.selectedBackgroundView = cellSelectedView
         
-        let hairetsu:NSArray = memo[indexPath.row] as! NSArray
+        let hairetsu:NSArray = appdele.getMemoList()[indexPath.row] as! NSArray
         
         // tag番号1 : タイトル
         let memoTitle = tableView.viewWithTag(1) as! UILabel
@@ -104,9 +139,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
             print("delete indexNumber:" + String(indexPath.row))
            
             // 削除
-            memo.removeObjectAtIndex(indexPath.row)
-            NSUD.removeObjectForKey(KEY)
-            NSUD.setObject(memo, forKey: KEY) ;
+            appdele.deleteTargeted(indexPath.row)
             
             // テーブル再読込み
             selectObj()
@@ -123,7 +156,8 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         */
         
         // マッチングに渡す配列
-        watasu = memo[indexPath.row] as! NSArray
+        //watasu = memo[indexPath.row] as! NSArray
+        appdele.setTargeted(indexPath.row)
         
         // 画面遷移
         jumpToNextView()
@@ -133,21 +167,21 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         
-        // マッチング画面遷移時は、選択されたセルの情報をViewController_matchingにセットする
-        if(segue.identifier == "modalMatching"){
-            let navigationController = segue.destinationViewController as! UINavigationController
-            print("segue's name : modalMatching")
-            let viewController = navigationController.topViewController as! ViewController_matching
-        
-            viewController.memo =  watasu
-        }
-            
-        if(segue.identifier == "showEtsuran"){
-            print("segue's name : showEtsuran")
-            let viewController = segue.destinationViewController as! ViewController_etsuran
-            
-            viewController.memo =  watasu
-        }
+//        // マッチング画面遷移時は、選択されたセルの情報をViewController_matchingにセットする
+//        if(segue.identifier == "modalMatching"){
+//            let navigationController = segue.destinationViewController as! UINavigationController
+//            print("segue's name : modalMatching")
+//            let viewController = navigationController.topViewController as! ViewController_matching
+//        
+//            viewController.memo =  watasu
+//        }
+//            
+//        if(segue.identifier == "showEtsuran"){
+//            print("segue's name : showEtsuran")
+//            let viewController = segue.destinationViewController as! ViewController_etsuran
+//            
+//            viewController.memo =  watasu
+//        }
         
     }
     
@@ -155,10 +189,10 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     private func jumpToNextView(){
         
         // 閲覧画面へ遷移するために Segue を呼び出す
-        if (flg) {
+        if (appdele.getTargeted()[5] as! String == "0") {
             performSegueWithIdentifier("showEtsuran",sender: nil)
         }
-        else if (!flg) {
+        else if (appdele.getTargeted()[5] as! String == "1") {
             // matching画面へ遷移するために Segue を呼び出す
             performSegueWithIdentifier("modalMatching",sender: nil)
         }

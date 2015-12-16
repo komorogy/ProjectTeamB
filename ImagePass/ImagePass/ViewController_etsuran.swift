@@ -20,7 +20,7 @@ import UIKit
 class ViewController_etsuran: UIViewController {
 
     // AppDelegateのインスタンス化
-    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
+    let appdele :AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate ;
     
     @IBOutlet weak var myTitle: UILabel!
     @IBOutlet weak var myTextView: UITextView!
@@ -38,9 +38,9 @@ class ViewController_etsuran: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(memo.count > 0){
-            myTitle.text = memo[0] as? String
-            myTextView.text = memo[1] as? String
+        if(appdele.getTargeted().count > 0){
+            myTitle.text = appdele.getTargeted()[0] as? String
+            myTextView.text = appdele.getTargeted()[1] as? String
         }
 
         // Do any additional setup after loading the view, typically from a nib.
@@ -77,10 +77,17 @@ class ViewController_etsuran: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+
+        // 戻るボタンが押された処理
+        print("back!")
+        appdele.clearTargeted()
+    }
+    
 
     // もう一回カギをかける デバッグ用につけといた
     @IBAction func reLock(sender: AnyObject) {
-        appDelegate.flg = false
         self.navigationController?.popViewControllerAnimated(true)    }
 
 /*

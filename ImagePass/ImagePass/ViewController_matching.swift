@@ -13,7 +13,7 @@ import Darwin
 
 class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
-    // AppDelegateのやつ
+    // appdelegate取得
     let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // 定数
@@ -71,18 +71,10 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad();
         debug("page loaded");
-        // var memo : objc_object!;// 指定されたメモのデータが入ってると想定
-        // var memo = { title: "メモのタイトル", text: "メモ本文", latitude: 1369.9, longtitue: 35.8}
-        //var memo = ["メモのタイトル", "本文", "35.8","136.9"];
-        //memo = NSUD.objectForKey(KEY) as! NSMutableArray;
-        
-        
-        
-        
         
         // 目標地点をもらった情報で設定する
-        let lati :Double = atof(memo[2] as! String)
-        let lon :Double = atof(memo[3] as! String)
+        let lati :Double = atof(appdele.getTargeted()[2] as! String)
+        let lon :Double  = atof(appdele.getTargeted()[3] as! String)
         goalLocation = CLLocation(latitude: lati, longitude: lon);
 //        goalLocation = CLLocation(latitude: (memo[2] as? Double)!, longitude: (memo[3] as? Double)!);
         
@@ -138,8 +130,15 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     // 仮ボタン　解錠と仮定
     @IBAction func OpenButton(sender: AnyObject) {
         // フラグ書き換え
-        appdele.flg = true
+        appdele.updateTargeted(5, update: "0")
         self.Closemodal(sender)
+    }
+    
+    private func selectObj(){
+        if((NSUD.objectForKey(KEY)) != nil){
+            memo = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray;
+            print("got NSUD")
+        }
     }
     
     // モーダルを破棄する
@@ -210,7 +209,6 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         debug(newHeading.magneticHeading);
         
         // コンパスの値が初めてとれたときは画像を矢印にする
-        // ↓とりあえず仮で画像追加したんだけど大きさどうすればいいかとかわかってない 笑 (西村)
         if(noCompass){
             directionImage = UIImage(named: "yajirushi.png")!
         }

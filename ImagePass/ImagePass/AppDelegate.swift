@@ -12,15 +12,81 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-//    var navigationController: UINavigationController?
 
-    //画面間のパラメータ用の変数
-    var Id: String!
+    // メモ取得用
+    let NSUD = NSUserDefaults();
+    let KEY = "KEYForNSUD";
+    private var memo: NSMutableArray = NSMutableArray();
     
-    //var targetedMemo:Dictionary = ["title":"", "text":"","date":"","latitude":0,"longtitue":0]
+    // 選択対象のメモ
+    private var targeted = ["","","","","",""];
     
-    //マッチング成功でtrueにかきかえる
-    var flg: Bool!
+    
+    // ゲッター
+    func getTargeted()->NSArray{
+        return targeted
+    }
+    
+    func getMemoList()->NSMutableArray{
+        return memo
+    }
+    
+    // セッター
+    func setTargeted(index:Int){
+        targeted = memo[index] as! [String]
+    }
+    
+    // ターゲットクリア
+    func clearTargeted(){
+        for (index, _) in EnumerateSequence(targeted) {
+            targeted[index] = ""
+        }
+    }
+    
+    // メモ一覧取得
+    func selectList(){
+        if((NSUD.objectForKey(KEY)) != nil){
+            memo = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray;
+            print("got NSUD")
+        }
+        
+    }
+    
+    //メモ一覧に登録
+    func addList(){
+        NSUD.setObject(memo, forKey: KEY)
+        NSUD.synchronize()
+        print("add NSUD:" + String(memo))
+    }
+    
+    // メモ一覧削除
+    private func deleteList(){
+        NSUD.removeObjectForKey(KEY)
+        NSUD.synchronize()
+        print("delete NSUD")
+    }
+    
+    // メモの配列に追加
+    func addMemo(){
+        memo.addObject(targeted)
+        print("add memo:" + String(targeted))
+    }
+    
+    // 選択メモの値更新
+    func updateTargeted(index :Int,update :String){
+        targeted[index] = update
+        print("update 'targeted':"+String(targeted))
+    }
+    
+    // メモ削除
+    func deleteTargeted(index :Int){
+        memo.removeObjectAtIndex(index)
+        print("delete indexNumber:" + String(index))
+        
+        deleteList()
+        addList()
+    }
+
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
