@@ -11,21 +11,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="QKU-7q-YEr">
-                    <rect key="frame" x="10" y="134" width="300" height="300"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="wTT-OI-m6G">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
             </subviews>
             <animations/>
-            <constraints>
-                <constraint firstItem="QKU-7q-YEr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="9yY-Dv-NZ4"/>
-                <constraint firstItem="QKU-7q-YEr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ChX-ay-5Oi"/>
-            </constraints>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="logo" width="1024" height="1024"/>
+        <image name="logo" width="320" height="568"/>
     </resources>
 </document>

@@ -46,7 +46,7 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
         self.view.backgroundColor = UIColor.whiteColor()
         
         //imageView作成
-        self.logoImageView = UIImageView(frame: CGRectMake(0, 0, 320, 320))
+        self.logoImageView = UIImageView(frame: CGRectMake(0, 0, 320, 568))
         //画面centerに
         self.logoImageView.center = self.view.center
         //logo設定
@@ -61,15 +61,15 @@ class ViewController_Main: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     override func viewDidAppear(animated: Bool) {
-        //少し縮小するアニメーション
-        UIView.animateWithDuration(0.3,
-            delay: 1.0,
-            options: UIViewAnimationOptions.CurveEaseOut,
-            animations: { () in
-                self.logoImageView.transform = CGAffineTransformMakeScale(0.9, 0.9)
-            }, completion: { (Bool) in
-                
-        })
+//        //少し縮小するアニメーション
+//        UIView.animateWithDuration(0.3,
+//            delay: 1.0,
+//            options: UIViewAnimationOptions.CurveEaseOut,
+//            animations: { () in
+//                self.logoImageView.transform = CGAffineTransformMakeScale(0.9, 0.9)
+//            }, completion: { (Bool) in
+//                
+//        })
         
         //拡大させて、消えるアニメーション
         UIView.animateWithDuration(0.2,

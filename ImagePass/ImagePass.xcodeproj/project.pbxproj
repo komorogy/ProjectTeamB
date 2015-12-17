@@ -18,8 +18,6 @@
 		4DB2913B1BBB82E3006433D1 /* ViewController_edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */; };
 		4DFAB4CE1BE9D8F1001284D2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFAB4CD1BE9D8F1001284D2 /* MapKit.framework */; };
 		6D3156AD1BF35186006B1C0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D3156AC1BF35186006B1C0F /* CoreLocation.framework */; };
-		6D64D7351BFB88EC007659A4 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D64D7341BFB88EC007659A4 /* sample.png */; };
-		6D64D7371BFB96BA007659A4 /* yajirushi.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D64D7361BFB96BA007659A4 /* yajirushi.png */; };
 		C5975F331BC12ABC0003CA6C /* ViewController_matching.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5975F321BC12ABC0003CA6C /* ViewController_matching.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,8 +47,6 @@
 		4DB2913A1BBB82E3006433D1 /* ViewController_edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_edit.swift; sourceTree = "<group>"; };
 		4DFAB4CD1BE9D8F1001284D2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6D3156AC1BF35186006B1C0F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		6D64D7341BFB88EC007659A4 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sample.png; path = ../../../Desktop/sample.png; sourceTree = "<group>"; };
-		6D64D7361BFB96BA007659A4 /* yajirushi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yajirushi.png; path = ../../../Desktop/yajirushi.png; sourceTree = "<group>"; };
 		C5975F321BC12ABC0003CA6C /* ViewController_matching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_matching.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,8 +73,6 @@
 		4D2B403A1BA951F100297939 = {
 			isa = PBXGroup;
 			children = (
-				6D64D7361BFB96BA007659A4 /* yajirushi.png */,
-				6D64D7341BFB88EC007659A4 /* sample.png */,
 				6D3156AC1BF35186006B1C0F /* CoreLocation.framework */,
 				4DFAB4CD1BE9D8F1001284D2 /* MapKit.framework */,
 				4D2B40451BA951F100297939 /* ImagePass */,
@@ -189,7 +183,7 @@
 				TargetAttributes = {
 					4D2B40421BA951F100297939 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 8D2PB67D2A;
+						DevelopmentTeam = FQQN64284S;
 					};
 					4D2B40571BA951F100297939 = {
 						CreatedOnToolsVersion = 6.1;
@@ -221,11 +215,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D64D7371BFB96BA007659A4 /* yajirushi.png in Resources */,
 				4D2B404E1BA951F100297939 /* Main.storyboard in Resources */,
 				4D2B40531BA951F100297939 /* LaunchScreen.xib in Resources */,
 				4D2B40501BA951F100297939 /* Images.xcassets in Resources */,
-				6D64D7351BFB88EC007659A4 /* sample.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
