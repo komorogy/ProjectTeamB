@@ -31,6 +31,24 @@ class ViewController_edit: UIViewController{
         /*画面遷移するときの関数
         performSegueWithIdentifier("showMemo",sender: nil)
         */
+        
+        keyboard.backgroundColor = UIColor.lightGrayColor()
+        buttonToClose.backgroundColor = UIColor.darkGrayColor()
+        buttonToClose.setTitle("とじる", forState: .Normal)
+        buttonToClose.layer.cornerRadius = 2.0
+        buttonToClose.addTarget(self, action: "closeKeyboard:", forControlEvents: .TouchUpInside)
+        
+        //Viewに完了ボタンを追加する。
+        keyboard.addSubview(buttonToClose)
+        
+        //ViewをFieldに設定する
+        TextEditer.inputAccessoryView = keyboard
+        myTitle.inputAccessoryView = keyboard
+        
+        //myTextFieldを追加する
+        self.view.addSubview(TextEditer)
+        self.view.addSubview(myTitle)
+
 
     }
     
@@ -62,8 +80,12 @@ class ViewController_edit: UIViewController{
     //@IBOutlet weak var BackButton: UIButton!
     @IBOutlet weak var TextEditer: UITextView!
     @IBOutlet weak var myTitle: UITextField!
+    //ボタンを追加するためのViewを生成します。
+    let keyboard = UIView(frame: CGRectMake(0, 0, 320, 40))
+    //完了ボタンの生成
+    let buttonToClose = UIButton(frame: CGRectMake(240, 5, 70, 30))
     
-
+    ///////////////////
 
     //ボタンアクション．
     /*@IBAction func PushSaveButton(sender: AnyObject) {
@@ -89,6 +111,11 @@ class ViewController_edit: UIViewController{
     func textFieldShouldReturn(textField: UITextField!) -> Bool{
         textField.resignFirstResponder()
         return true
+    }
+    
+    //ボタンを押すとキーボードが下がるメソッド
+    func closeKeyboard (sender: UIButton) {
+        self.view.endEditing(true)
     }
     
     //MoveView(ViewName:String) : 画面遷移する関数
