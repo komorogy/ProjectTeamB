@@ -17,7 +17,12 @@ import UIKit
 // ディレクトリをいじったりするクラス？みたいなの．defaultManager()でインスタンス化するみたい．
 private let fileManager:NSFileManager = NSFileManager.defaultManager() ;
 */
-class ViewController_edit: UIViewController{
+
+protocol editDelegate{
+    func changeSetFlg(flg:Bool)
+}
+
+class ViewController_edit: UIViewController,editDelegate{
     
     // appdelegate取得
     let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -66,7 +71,9 @@ class ViewController_edit: UIViewController{
 //        
 //        viewController.data[0] = myTitle.text! ;
 //        viewController.data[1] = TextEditer.text;
-        
+        let navigationController = segue.destinationViewController as! UINavigationController;
+        let viewController = navigationController.topViewController as! ViewController_satsuei ;
+        viewController.delegate = self
 
         appdele.updateTargeted(0, update: myTitle.text!)
         appdele.updateTargeted(1, update: TextEditer.text)
@@ -117,20 +124,25 @@ class ViewController_edit: UIViewController{
     func closeKeyboard (sender: UIButton) {
         self.view.endEditing(true)
     }
+
+    
+    func changeSetFlg(flg:Bool){
+        self.setFlg = flg
+    }
     
     //MoveView(ViewName:String) : 画面遷移する関数
-    private func MoveView(ViewName:String){
-
-        switch ViewName {
-/*        case "etsuran"://編集画面へ飛ぶ
-            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
-            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
-            self.navigationController?.pushViewController(nextViewController, animated: true);
-*/        default ://エラー処理どうする？
-            break ;
-        }
-
-    }
+//    private func MoveView(ViewName:String){
+//
+//        switch ViewName {
+///*        case "etsuran"://編集画面へ飛ぶ
+//            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard_etsuran", bundle: NSBundle.mainBundle())
+//            let nextViewController: ViewController_etsuran = storyboard.instantiateInitialViewController() as! ViewController_etsuran ;
+//            self.navigationController?.pushViewController(nextViewController, animated: true);
+//*/        default ://エラー処理どうする？
+//            break ;
+//        }
+//
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

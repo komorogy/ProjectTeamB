@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // 選択対象のメモ
     private var targeted = ["","","","","",""];
+    private var indexnum = 0
     
     
     // ゲッター
@@ -31,9 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return memo
     }
     
+    func getTargetedIndexOfNumber()->Int{
+        return indexnum
+    }
+    
     // セッター
     func setTargeted(index:Int){
         targeted = memo[index] as! [String]
+        indexnum = index
     }
     
     // ターゲットクリア
@@ -41,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for (index, _) in EnumerateSequence(targeted) {
             targeted[index] = ""
         }
+        indexnum = 0
     }
     
     // メモ一覧取得
@@ -76,6 +83,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func updateTargeted(index :Int,update :String){
         targeted[index] = update
         print("update 'targeted':"+String(targeted))
+    }
+    
+    // NSUDメモの内容を更新
+    func updateNSUD(){
+        // 更新対象のindexを削除
+        memo.removeObjectAtIndex(indexnum)
+        print("delete indexNumber:" + String(indexnum))
+        // 元あったindex番号に、更新する値を追加
+        memo.insertObject(targeted, atIndex: indexnum)
+        print("add memo:" + String(memo[indexnum]))
+        
+        deleteList()
+        addList()
     }
     
     // メモ削除

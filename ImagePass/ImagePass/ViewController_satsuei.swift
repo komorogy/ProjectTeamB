@@ -35,6 +35,7 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
     
     // appdelegate取得
     let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var delegate:editDelegate!
     
     @IBOutlet weak var navigation: UILabel!
     
@@ -166,6 +167,8 @@ class ViewController_satsuei: UIViewController,MKMapViewDelegate,CLLocationManag
 //            viewController.setFlg = true
 //        let viewController = ViewController_edit as! UINavigationController
 //        ViewController_edit.setFlg = true
+        
+        self.delegate.changeSetFlg(true)
         self.dismissViewControllerAnimated(true , completion: nil)
     }
     

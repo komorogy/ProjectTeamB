@@ -131,6 +131,8 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     @IBAction func OpenButton(sender: AnyObject) {
         // フラグ書き換え
         appdele.updateTargeted(5, update: "0")
+        appdele.updateNSUD()
+        
         self.Closemodal(sender)
     }
     
