@@ -18,27 +18,24 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 定数
     let PAGE_NAME: String = "unlock";// ページ名
-    //let ERR_LIMIT: Int = 100;// GPS照合失敗回数上限
-    //let INTERVAL = 0.01;// GPS取得間隔 メートル
     let CORRECT_RANGE = 100.0;// 解錠範囲 メートルで指定できる
-    //let PI = 3.141592653589;// 円周率
     // 最終的な返却値
     //let SUCCESS: Bool = true;// 解錠成功時に返却する値
-    //let FAILED: Bool = false;// 解錠失敗時に返却する値
+    //let FAILED: Bool  = false;// 解錠失敗時に返却する値
     
     
-    // コンパスの値が取得できていない間true
-    var noCompass: Bool = true;
+    // コンパスの値が取得できていたらtrue
+    var compassCatched: Bool = false;
     
     // メモ取得用
     let NSUD = NSUserDefaults();
-    let KEY = "KEYForNSUD";
-    var memo: NSArray = NSArray();
+    let KEY  = "KEYForNSUD";
+    var memo:  NSArray = NSArray();
     
     
     // 矢印の画像
     var directionImage: UIImage!;// = UIImage(named: "sample.jpeg")!
-    let myRotateView:UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
+    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
     
     var lm: CLLocationManager!
     
@@ -49,7 +46,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     // 現在地
     var currentLocation: CLLocation!;
     // 目標地点
-    var goalLocation: CLLocation!;
+    var goalLocation   : CLLocation!;
     
     // 端末の向き
     // コンパスの値が取れててないときは 0.0 （北）
@@ -59,24 +56,14 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     // 表示する矢印の向き
     var goalDirection: Double!;// = dirN0 - computerHeading;
     
-    
-    // ▼廃止だけど一応
-    /*
-    // タイムアウト
-    // GPS照合失敗回数
-    var errCnt: Int = 0;
-    */
-    // ▲廃止だけど一応
-    
     override func viewDidLoad() {
         super.viewDidLoad();
         debug("page loaded");
         
         // 目標地点をもらった情報で設定する
-        let lati :Double = atof(appdele.getTargeted()[2] as! String)
-        let lon :Double  = atof(appdele.getTargeted()[3] as! String)
+        let lati :Double  = atof(appdele.getTargeted()[2] as! String)
+        let lon  :Double  = atof(appdele.getTargeted()[3] as! String)
         goalLocation = CLLocation(latitude: lati, longitude: lon);
-//        goalLocation = CLLocation(latitude: (memo[2] as? Double)!, longitude: (memo[3] as? Double)!);
         
         // 矢印の方向を0にする
         goalDirection = 0.0;
@@ -84,20 +71,13 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         
         // 画像
         // 最初は東西南北だけわかる画像
-        // コンパスの値が取れたら矢印に帰る
+        // コンパスの値が取れたら矢印に変える
         directionImage = UIImage(named: "sample.png")!
         myRotateView.contentMode = UIViewContentMode.ScaleAspectFill
-        // 距離の初期表示
         
         // 矢印の表示
-        // 画像を回転する.
-        //let myRotateView:UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
         // UIImageViewに画像を設定する.
         myRotateView.image = directionImage
-        // radianで回転角度を指定(30度)する.
-        let angle:CGFloat = CGFloat((goalDirection * M_PI) / 180.0)
-        // 回転用のアフィン行列を生成する.
-        myRotateView.transform = CGAffineTransformMakeRotation(angle)
         // Viewに張りつけ.
         self.view.addSubview(myRotateView)
         
@@ -114,12 +94,16 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         lm.requestAlwaysAuthorization()
         // 位置情報の精度を指定．任意，
         lm.desiredAccuracy = kCLLocationAccuracyBest
-        // 位置情報取得間隔を指定．指定した値（メートル）移動したら位置情報を更新する．任意．
-        //lm.distanceFilter = CLLocationDistance(INTERVAL);// 時間にする ないかも
         
-        // GPSの使用を開始する
+        /**
+         * GPSとコンパスを取得します。
+         * GPSとコンパスは並列に動きます多分。
+         * GPS側：    GPS取得->距離判定->GPS再取得or成功
+         * コンパス側：コンパス取得->コンパス再取得
+         * コンパス初回取得時に画像を矢印に変えます。
+         */
         lm.startUpdatingLocation()
-        lm.startUpdatingHeading()// コンパス
+        lm.startUpdatingHeading()
     }
     
     // ナビゲーションバー上の戻るボタン
@@ -175,30 +159,19 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         } else {
             debug("not yet succeeded to unlock");
             
-            // ▼廃止だけど一応
-            /*
-            // タイムアウト
-            if(errCnt++ > ERR_LIMIT){
-            ;// アラート
-            ;// 一覧に戻る
-            }
-            */
-            // ▲廃止だけど一応
             
             // 距離と方向を表示
             debug(distanceToGoal);
-            
             if(distanceToGoal > 1000){
-                textDistance.text = String(format:"%f km", round(distanceToGoal / 1000));
+                textDistance.text = String( floor(distanceToGoal / 1000 )) + " km";
             } else {
-                textDistance.text = String(format:"%f m", round(distanceToGoal));
+                textDistance.text = String( floor(distanceToGoal        )) + " m";
             }
             
             debug("retrying...");
             
-            // なんとなく
-            sleep(1);
-            lm.startUpdatingLocation();
+            // GPSを再取得。
+            lm.startUpdatingLocation()
             
         }
     }
@@ -207,14 +180,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     func locationManager(manager:CLLocationManager, didUpdateHeading newHeading:CLHeading) {
         // ipod touch はコンパスが使えないらしいので、ここには来ない
         debug("get heading");
-        debug(newHeading.trueHeading);
-        debug(newHeading.magneticHeading);
         
         // コンパスの値が初めてとれたときは画像を矢印にする
-        if(noCompass){
+        if(!compassCatched){
             directionImage = UIImage(named: "yajirushi.png")!
         }
-        noCompass = false;
+        compassCatched = true;
         
         // 端末の向き更新
         computerHeading = newHeading.magneticHeading;
@@ -225,8 +196,8 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 北を０度で右回りの角度０～３６０度
         let lng1 = currentLocation.coordinate.longitude;
         let lat1 = currentLocation.coordinate.latitude;
-        let lng2 = goalLocation.coordinate.longitude;
-        let lat2 = goalLocation.coordinate.latitude;
+        let lng2 = goalLocation   .coordinate.longitude;
+        let lat2 = goalLocation   .coordinate.latitude;
         
         let Y = cos(lng2 * M_PI / 180) * sin(lat2 * M_PI / 180 - lat1 * M_PI / 180);
         let X = cos(lng1 * M_PI / 180) * sin(lng2 * M_PI / 180) - sin(lng1 * M_PI / 180) * cos(lng2 * M_PI / 180) * cos(lat2 * M_PI / 180 - lat1 * M_PI / 180);
@@ -244,26 +215,29 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             // 負だったら正の表現値にする
             goalDirection = goalDirection + 360.0;//
         }
+        // 画像を回転させる。
         let angle:CGFloat = CGFloat((goalDirection * M_PI) / 180.0)
-        // 回転用のアフィン行列を生成する.
+        myRotateView.image = directionImage
         myRotateView.transform = CGAffineTransformMakeRotation(angle)
+        self.view.addSubview(myRotateView)
+        
+        // コンパスを再取得。
+        lm.startUpdatingHeading()
     }
     
     /*位置情報取得失敗時に実行される関数 　多分コンパスも*/
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         debug("failed to get GPS or heading");
-        //debug(error.description);
-        // なんとなく
-        lm.startUpdatingLocation();
+        lm.startUpdatingLocation()
+        lm.startUpdatingHeading()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // コンソールログ出力
     func debug(message: NSObject){
-        NSLog(PAGE_NAME + ": " + String(message));
+        print(PAGE_NAME + ": " + String(message));
     }
 }
