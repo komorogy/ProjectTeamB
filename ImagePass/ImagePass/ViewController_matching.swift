@@ -176,6 +176,26 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
                 textDistance.text = String( floor(distanceToGoal        )) + " m";
             }
             
+            // 画像を回転
+            // コンパスの値が取得できている場合は、コンパス取得時に回転させるので、ここでは回転させない（画像も違う）。
+            if(!compassCatched){
+                // 現在地からみて目標地点はどちらの方向にあるか計算
+                dirN0 = Double(computeDirectionFromGPS1ToGPS2(
+                    /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
+                    startLong:       currentLocation.coordinate.longitude,
+                    goalLati :       goalLocation.coordinate   .latitude,
+                    goalLong :       goalLocation.coordinate   .longitude)
+                );
+                
+                debug2(dirN0)
+                
+                // 画像を回転させる。
+                let angle:CGFloat = CGFloat((dirN0 * M_PI) / 180.0)
+                myRotateView.image = directionImage
+                myRotateView.transform = CGAffineTransformMakeRotation(angle)
+                self.view.addSubview(myRotateView)
+            }
+            
             debug("retrying...");
             
             // GPSを再取得。
@@ -199,31 +219,26 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         computerHeading = newHeading.magneticHeading;
         
         // 現在地からみて目標地点はどちらの方向にあるか計算
-        // http://hamasyou.com/blog/2010/09/07/post-2/
-        // 緯度経度 lat1, lng1 の点を出発として、緯度経度 lat2, lng2 への方位
-        // 北を０度で右回りの角度０～３６０度
-        let lng1 = currentLocation.coordinate.longitude;
-        let lat1 = currentLocation.coordinate.latitude;
-        let lng2 = goalLocation   .coordinate.longitude;
-        let lat2 = goalLocation   .coordinate.latitude;
-        
-        let Y = cos(lng2 * M_PI / 180) * sin(lat2 * M_PI / 180 - lat1 * M_PI / 180);
-        let X = cos(lng1 * M_PI / 180) * sin(lng2 * M_PI / 180) - sin(lng1 * M_PI / 180) * cos(lng2 * M_PI / 180) * cos(lat2 * M_PI / 180 - lat1 * M_PI / 180);
-        var dirE0 = 180 * atan2(Y, X) / M_PI; // 東向きが０度の方向
-        if (dirE0 < 0) {
-            dirE0 = dirE0 + 360; //0～360 にする。
-        }
-        dirN0 = (dirE0 + 90) % 360; //(dirE0+90)÷360の余りを出力 北向きが０度の方向
-        //dirN0 = (90 - dirE0) % 360;
-        //dirN0 = (dirE0 + 180) % 360;
+        dirN0 = Double(computeDirectionFromGPS1ToGPS2(
+         /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
+            startLong:    currentLocation.coordinate.longitude,
+            goalLati :    goalLocation   .coordinate.latitude,
+            goalLong :    goalLocation   .coordinate.longitude)
+        );
         
         // 矢印の向き更新
-        goalDirection = dirN0 - computerHeading;
+        goalDirection = -1 * dirN0 + computerHeading;
+        
         if(goalDirection < 0) {
             // 負だったら正の表現値にする
             goalDirection = goalDirection + 360.0;//
         }
         // 画像を回転させる。
+        
+        debug2(dirN0);
+        debug2(computerHeading);
+        
+        
         let angle:CGFloat = CGFloat((goalDirection * M_PI) / 180.0)
         myRotateView.image = directionImage
         myRotateView.transform = CGAffineTransformMakeRotation(angle)
@@ -240,12 +255,57 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         lm.startUpdatingHeading()
     }
     
+    // （緯度１、経度１）、（緯度２、経度２）を渡すと、
+    // １から見た２の方向を返します。
+    // 
+    // input : (startLat, startLong, goalLati, goalLong)　すべてDouble
+    // output: 北を０度で右回りの角度０～３６０度
+    //
+    // 計算式は
+    // http://hamasyou.com/blog/2010/09/07/post-2/
+    // を参照。
+    func computeDirectionFromGPS1ToGPS2(startLati: Double,
+                                        startLong: Double,
+                                        goalLati : Double,
+                                        goalLong : Double) -> Int{
+                                            
+        let Y = cos(goalLong  * M_PI / 180) * sin(goalLati * M_PI / 180  - startLati     * M_PI / 180);
+        let X = cos(startLong * M_PI / 180) * sin(goalLong * M_PI / 180) - sin(startLong * M_PI / 180) * cos(goalLong * M_PI / 180) * cos(goalLati * M_PI / 180 - startLati * M_PI / 180);
+
+        var directionTangent: Double = 0.0;
+                                            if( X == 0 ){
+                                                if( Y >= 0 ){
+                                                    return 0;
+                                                } else {
+                                                    return 180;
+                                                }
+                                            }
+        directionTangent = 180 * atan2( X, Y) / M_PI;
+                                            
+                                            if ( X > 0 ){
+                                                return  90 - Int( directionTangent );
+                                            } else {
+                                                return 270 + Int( directionTangent );
+                                            }
+                                            return 0;
+        //if ( dirS0 - 180 < 0) {
+          //  dirS0 = dirS0 + 360; //0～360 にする。
+        //}
+        //return Int(dirS0 - 180) % 360;// ipodはこれでok
+                                           //return Int(dirS0)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     // コンソールログ出力
     func debug(message: NSObject){
+        //print(PAGE_NAME + ": " + String(message));
+    }
+    // 特定の部分だけ見たいとき
+    func debug2(message: NSObject){
         print(PAGE_NAME + ": " + String(message));
     }
+    
 }
