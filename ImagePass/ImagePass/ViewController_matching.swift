@@ -148,11 +148,19 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         if( distanceToGoal < CORRECT_RANGE){
             debug("succeeded to unlock!!!!!!")
             
-            //GPSの使用を停止する．停止しない限りGPSは実行され，指定間隔で更新され続ける．
+            //GPSの使用を停止する．
             lm.stopUpdatingLocation()
             lm.stopUpdatingHeading()
-            // 画面遷移用のボタン表示
             
+            // 画面遷移用のボタン表示
+            // ここらへんの仕様としての正しい挙動がよくわからない
+            let alertController = UIAlertController(title: "解錠成功", message: "右上のOpenをタップしてください。", preferredStyle: .Alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+        
             // 解錠
             OpenButton(0);// 引数なにかわからない
             
