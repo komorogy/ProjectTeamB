@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--View Controller Main-->
+        <!--メモ一覧-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController_Main" customModule="ImagePass" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.58823529409999997" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="e1e-Nq-gVJ">
+                    <navigationItem key="navigationItem" title="メモ一覧" id="e1e-Nq-gVJ">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="BjZ-qt-Z63">
                             <connections>
                                 <segue destination="aBj-IA-DG7" kind="show" identifier="showEdit" id="mvR-Di-s6C"/>
@@ -70,7 +70,7 @@
             </objects>
             <point key="canvasLocation" x="440" y="16"/>
         </scene>
-        <!--View Controller matching-->
+        <!--マッチング中…-->
         <scene sceneID="3ju-Y0-uUp">
             <objects>
                 <viewController id="xVU-8i-Qzk" customClass="ViewController_matching" customModule="ImagePass" customModuleProvider="target" sceneMemberID="viewController">
@@ -91,7 +91,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="tcU-7a-2Mz">
+                    <navigationItem key="navigationItem" title="マッチング中…" id="tcU-7a-2Mz">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="ceG-iA-FdV">
                             <connections>
                                 <action selector="BackButton:" destination="xVU-8i-Qzk" id="BCP-iy-bRK"/>
@@ -112,7 +112,7 @@
             </objects>
             <point key="canvasLocation" x="1329" y="709"/>
         </scene>
-        <!--View Controller edit-->
+        <!--メモ作成-->
         <scene sceneID="Pdk-bf-tA0">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="aBj-IA-DG7" customClass="ViewController_edit" customModule="ImagePass" sceneMemberID="viewController">
@@ -124,14 +124,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="タイトル" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2YY-x4-mmD">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="タイトル" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2YY-x4-mmD">
                                 <rect key="frame" x="35" y="92" width="250" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="ここにテキスト" translatesAutoresizingMaskIntoConstraints="NO" id="Luk-LS-ybZ">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Luk-LS-ybZ">
                                 <rect key="frame" x="35" y="130" width="250" height="150"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -140,7 +140,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.84705882352941175" green="0.92156862745098034" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="8fN-if-Mwi">
+                    <navigationItem key="navigationItem" title="メモ作成" id="8fN-if-Mwi">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="eeE-NL-ELN">
                             <connections>
                                 <action selector="PushSaveButton:" destination="aBj-IA-DG7" id="8cB-QE-GiI"/>
@@ -163,7 +163,7 @@
             </objects>
             <point key="canvasLocation" x="846" y="-675"/>
         </scene>
-        <!--View Controller satsuei-->
+        <!--位置情報設定-->
         <scene sceneID="H6b-M4-jjc">
             <objects>
                 <viewController id="bQF-vJ-D76" customClass="ViewController_satsuei" customModule="ImagePass" sceneMemberID="viewController">
@@ -188,7 +188,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="PnI-II-yMU">
+                    <navigationItem key="navigationItem" title="位置情報設定" id="PnI-II-yMU">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="xmb-kM-kwy">
                             <connections>
                                 <action selector="BackButton:" destination="bQF-vJ-D76" id="b8J-E6-tjc"/>
@@ -268,7 +268,7 @@
             </objects>
             <point key="canvasLocation" x="1694" y="-375"/>
         </scene>
-        <!--View Controller etsuran-->
+        <!--メモ閲覧-->
         <scene sceneID="Lf3-AH-44i">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="rbU-Pv-GCK" customClass="ViewController_etsuran" customModule="ImagePass" sceneMemberID="viewController">
@@ -296,13 +296,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.84705882349999995" green="0.92156862750000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="RZC-Yw-92p">
-                        <barButtonItem key="rightBarButtonItem" title="lock" id="TDd-bS-8mX">
-                            <connections>
-                                <action selector="reLock:" destination="rbU-Pv-GCK" id="4zl-EU-tQ5"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="メモ閲覧" id="RZC-Yw-92p"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="myTextView" destination="cot-bg-gfS" id="ENL-fh-7uz"/>
