@@ -153,12 +153,11 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             
             // 画面遷移用のボタン表示
             let alertController = UIAlertController(title: "解錠成功", message: "目標地点に到達しました。", preferredStyle: .Alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default ){
+                action in self.OpenButton(0);
+            }
             alertController.addAction(defaultAction)
             presentViewController(alertController, animated: true, completion: nil)
-            
-            // 解錠
-            OpenButton(0);// 引数なにかわからない
             
         } else {
             debug("not yet succeeded to unlock");
