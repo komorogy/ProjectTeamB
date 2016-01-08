@@ -18,7 +18,9 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 定数
     let PAGE_NAME: String = "unlock";// ページ名
-    let CORRECT_RANGE = 100.0;// 解錠範囲 メートルで指定できる
+    let CORRECT_RANGE = 25.0; // 解錠範囲 メートルで指定できる
+    let NOT_FAR_RANGE = 150.0;// 残りの距離を青色で表示する範囲（メートル）
+    let NEAR_RANGE    = 50.0; // 残りの距離を赤色で表示する範囲（メートル）
     // 最終的な返却値
     //let SUCCESS: Bool = true;// 解錠成功時に返却する値
     //let FAILED:  Bool = false;// 解錠失敗時に返却する値
@@ -35,7 +37,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 矢印の画像
     var directionImage: UIImage!;// = UIImage(named: "sample.jpeg")!
-    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 100, y: 250, width: 80, height: 80))
+    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 70, y: 220, width: 200, height: 300))
     
     var lm: CLLocationManager!
     
@@ -68,7 +70,6 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // 矢印の方向を0にする
         goalDirection = 0.0;
         
-        
         // 画像
         // 最初は東西南北だけわかる画像
         // コンパスの値が取れたら矢印に変える
@@ -80,8 +81,6 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         myRotateView.image = directionImage
         // Viewに張りつけ.
         self.view.addSubview(myRotateView)
-        
-        
         
         // フィールドの初期化
         lm = CLLocationManager()
@@ -164,12 +163,21 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         } else {
             debug("not yet succeeded to unlock");
             
-            // 距離と方向を表示
+            // 距離と方向を表示 1000m 以上ならkm表示	
             debug(distanceToGoal);
             if(distanceToGoal > 1000){
-                textDistance.text = String( floor(distanceToGoal / 1000 )) + " km";
+                textDistance.textColor = UIColor.blackColor();//文字色変化
+                textDistance.text = String( floor( distanceToGoal / 1000 )) + " km";
             } else {
-                textDistance.text = String( floor(distanceToGoal        )) + " m";
+                // 文字色変化
+                if ( distanceToGoal <= NEAR_RANGE ){
+                    textDistance.textColor = UIColor.redColor();
+                } else if ( distanceToGoal <= NOT_FAR_RANGE){
+                    textDistance.textColor = UIColor.blueColor();
+                } else {
+                    textDistance.textColor = UIColor.blackColor();
+                }
+                textDistance.text = String( floor( distanceToGoal )) + " m";
             }
             
             // 画像を回転
@@ -239,7 +247,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         debug("failed to get GPS or heading");
         lm.startUpdatingLocation()
         lm.startUpdatingHeading()
-    }
+    }    
     
     // （緯度１、経度１）、（緯度２、経度２）を渡すと、
     // １から見た２の方向を返します。
