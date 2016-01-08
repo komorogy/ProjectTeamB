@@ -21,7 +21,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     let CORRECT_RANGE = 100.0;// 解錠範囲 メートルで指定できる
     // 最終的な返却値
     //let SUCCESS: Bool = true;// 解錠成功時に返却する値
-    //let FAILED: Bool  = false;// 解錠失敗時に返却する値
+    //let FAILED:  Bool = false;// 解錠失敗時に返却する値
     
     
     // コンパスの値が取得できていたらtrue
@@ -96,12 +96,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         lm.desiredAccuracy = kCLLocationAccuracyBest
         
         /**
-         * GPSとコンパスを取得します。
-         * GPSとコンパスは並列に動きます多分。
-         * GPS側：    GPS取得->距離判定->GPS再取得or成功
-         * コンパス側：コンパス取得->コンパス再取得
-         * コンパス初回取得時に画像を矢印に変えます。
-         */
+        * GPSとコンパスを取得します。
+        * GPSとコンパスは並列に動きます多分。
+        * GPS側：    GPS取得->距離判定->GPS再取得or成功
+        * コンパス側：コンパス取得->コンパス再取得
+        * コンパス初回取得時に画像を矢印に変えます。
+        */
         lm.startUpdatingLocation()
         lm.startUpdatingHeading()
     }
@@ -153,20 +153,16 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             lm.stopUpdatingHeading()
             
             // 画面遷移用のボタン表示
-            // ここらへんの仕様としての正しい挙動がよくわからない
-            let alertController = UIAlertController(title: "解錠成功", message: "右上のOpenをタップしてください。", preferredStyle: .Alert)
-            
+            let alertController = UIAlertController(title: "解錠成功", message: "目標地点に到達しました。", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
             alertController.addAction(defaultAction)
-            
             presentViewController(alertController, animated: true, completion: nil)
-        
+            
             // 解錠
             OpenButton(0);// 引数なにかわからない
             
         } else {
             debug("not yet succeeded to unlock");
-            
             
             // 距離と方向を表示
             debug(distanceToGoal);
@@ -182,15 +178,13 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
                 // 現在地からみて目標地点はどちらの方向にあるか計算
                 dirN0 = Double(computeDirectionFromGPS1ToGPS2(
                     /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
-                    startLong:       currentLocation.coordinate.longitude,
-                    goalLati :       goalLocation.coordinate   .latitude,
-                    goalLong :       goalLocation.coordinate   .longitude)
+                    startLong:    currentLocation.coordinate.longitude,
+                    goalLati :    goalLocation   .coordinate.latitude,
+                    goalLong :    goalLocation   .coordinate.longitude)
                 );
                 
-                debug2(dirN0)
-                
                 // 画像を回転させる。
-                let angle:CGFloat = CGFloat((dirN0 * M_PI) / 180.0)
+                let angle:CGFloat = CGFloat((-1 * dirN0 * M_PI) / 180.0) // 東西南北の画像を逆回転
                 myRotateView.image = directionImage
                 myRotateView.transform = CGAffineTransformMakeRotation(angle)
                 self.view.addSubview(myRotateView)
@@ -216,29 +210,21 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         compassCatched = true;
         
         // 端末の向き更新
-        computerHeading = newHeading.magneticHeading;
+        //        computerHeading = newHeading.magneticHeading;
+        computerHeading = newHeading.trueHeading;
         
         // 現在地からみて目標地点はどちらの方向にあるか計算
         dirN0 = Double(computeDirectionFromGPS1ToGPS2(
-         /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
+            /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
             startLong:    currentLocation.coordinate.longitude,
             goalLati :    goalLocation   .coordinate.latitude,
             goalLong :    goalLocation   .coordinate.longitude)
         );
         
         // 矢印の向き更新
-        goalDirection = -1 * dirN0 + computerHeading;
+        goalDirection = ( dirN0 - computerHeading + 360) % 360;
         
-        if(goalDirection < 0) {
-            // 負だったら正の表現値にする
-            goalDirection = goalDirection + 360.0;//
-        }
         // 画像を回転させる。
-        
-        debug2(dirN0);
-        debug2(computerHeading);
-        
-        
         let angle:CGFloat = CGFloat((goalDirection * M_PI) / 180.0)
         myRotateView.image = directionImage
         myRotateView.transform = CGAffineTransformMakeRotation(angle)
@@ -257,42 +243,28 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // （緯度１、経度１）、（緯度２、経度２）を渡すと、
     // １から見た２の方向を返します。
-    // 
+    //
     // input : (startLat, startLong, goalLati, goalLong)　すべてDouble
-    // output: 北を０度で右回りの角度０～３６０度
+    // output: 北を０度で右回りの角度０～３５９度
     //
     // 計算式は
     // http://hamasyou.com/blog/2010/09/07/post-2/
     // を参照。
-    func computeDirectionFromGPS1ToGPS2(startLati: Double,
-                                        startLong: Double,
-                                        goalLati : Double,
-                                        goalLong : Double) -> Int{
-                                            
-        let Y = cos(goalLong  * M_PI / 180) * sin(goalLati * M_PI / 180  - startLati     * M_PI / 180);
-        let X = cos(startLong * M_PI / 180) * sin(goalLong * M_PI / 180) - sin(startLong * M_PI / 180) * cos(goalLong * M_PI / 180) * cos(goalLati * M_PI / 180 - startLati * M_PI / 180);
-
-        var directionTangent: Double = 0.0;
-                                            if( X == 0 ){
-                                                if( Y >= 0 ){
-                                                    return 0;
-                                                } else {
-                                                    return 180;
-                                                }
-                                            }
-        directionTangent = 180 * atan2( X, Y) / M_PI;
-                                            
-                                            if ( X > 0 ){
-                                                return  90 - Int( directionTangent );
-                                            } else {
-                                                return 270 + Int( directionTangent );
-                                            }
-                                            return 0;
-        //if ( dirS0 - 180 < 0) {
-          //  dirS0 = dirS0 + 360; //0～360 にする。
-        //}
-        //return Int(dirS0 - 180) % 360;// ipodはこれでok
-                                           //return Int(dirS0)
+    func computeDirectionFromGPS1ToGPS2(
+        startLati: Double,
+        startLong: Double,
+        goalLati : Double,
+        goalLong : Double
+        ) -> Int{
+            let Y = ( -1 ) * cos(goalLong  * M_PI / 180) * sin(goalLati * M_PI / 180  - startLati     * M_PI / 180);
+            let X = cos(startLong * M_PI / 180) * sin(goalLong * M_PI / 180) - sin(startLong * M_PI / 180) * cos(goalLong * M_PI / 180) * cos(goalLati * M_PI / 180 - startLati * M_PI / 180);
+            
+            var directionFromGPS1ToGPS2_deg = Int ( 180 * atan2( Y, X) / M_PI + 360 )  % 360;// 東：0、北：90、西：180、南：270
+            // 時計周りにする。
+            directionFromGPS1ToGPS2_deg = 360 - directionFromGPS1ToGPS2_deg;
+            // 北を0にする。
+            directionFromGPS1ToGPS2_deg += 90;
+            return  directionFromGPS1ToGPS2_deg % 360;
     }
     
     override func didReceiveMemoryWarning() {
