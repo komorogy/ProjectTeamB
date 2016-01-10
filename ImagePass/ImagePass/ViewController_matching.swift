@@ -12,55 +12,44 @@ import CoreLocation
 import Darwin
 
 class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
-    
     // appdelegate取得
     let appdele:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // 定数
     let PAGE_NAME: String = "unlock";// ページ名
-    let CORRECT_RANGE = 25.0; // 解錠範囲 メートルで指定できる
+    let CORRECT_RANGE = 10.0; // 解錠範囲 メートルで指定できる
     let NOT_FAR_RANGE = 150.0;// 残りの距離を青色で表示する範囲（メートル）
     let NEAR_RANGE    = 50.0; // 残りの距離を赤色で表示する範囲（メートル）
-    // 最終的な返却値
-    //let SUCCESS: Bool = true;// 解錠成功時に返却する値
-    //let FAILED:  Bool = false;// 解錠失敗時に返却する値
     
-    
-    // コンパスの値が取得できていたらtrue
-    var compassCatched: Bool = false;
+    // 変数
+    var compassCatched  : Bool = false; // コンパスの値が取得できていたらtrue
+    var currentLocation : CLLocation!;  // 現在地
+    var goalLocation    : CLLocation!;  // 目標地点
+    var computerHeading : Double = 0.0; // 端末の向き　北を0.0として反時計周りの角度。コンパスの値が取れてないときは 0.0 （北）
+    var dirN0           : Double = 0.0; // 目標の方向　北を0.0として反時計周りの角度。
+    var goalDirection   : Double!;      // 表示する矢印の向き　北を0.0として反時計周りの角度。
     
     // メモ取得用
     let NSUD = NSUserDefaults();
     let KEY  = "KEYForNSUD";
     var memo:  NSArray = NSArray();
     
-    
-    // 矢印の画像
-    var directionImage: UIImage!;// = UIImage(named: "sample.jpeg")!
-    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 70, y: 220, width: 200, height: 300))
-    
     var lm: CLLocationManager!
     
-    // 目的地までの距離表示用ラベル
-    @IBOutlet weak var textDistance: UILabel!
+    // 矢印の画像
+    var directionImage: UIImage!;
+    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 75, y: 220, width: 200, height: 300))
     
     
-    // 現在地
-    var currentLocation: CLLocation!;
-    // 目標地点
-    var goalLocation   : CLLocation!;
-    
-    // 端末の向き
-    // コンパスの値が取れててないときは 0.0 （北）
-    var computerHeading: Double = 0.0;
-    // 目標の方向
-    var dirN0: Double = 0.0
-    // 表示する矢印の向き
-    var goalDirection: Double!;// = dirN0 - computerHeading;
+    // ラベル
+    @IBOutlet weak var textDistance : UILabel!// 目的地までの距離表示用ラベル
+    @IBOutlet weak var textMemoTitle: UILabel!// メモタイトル表示用ラベル
     
     override func viewDidLoad() {
         super.viewDidLoad();
         debug("page loaded");
+        
+        textMemoTitle.text = (appdele.getTargeted()[0] as! String);
         
         // 目標地点をもらった情報で設定する
         let lati :Double  = atof(appdele.getTargeted()[2] as! String)
@@ -77,9 +66,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         myRotateView.contentMode = UIViewContentMode.ScaleAspectFill
         
         // 矢印の表示
-        // UIImageViewに画像を設定する.
         myRotateView.image = directionImage
-        // Viewに張りつけ.
         self.view.addSubview(myRotateView)
         
         // フィールドの初期化
@@ -88,11 +75,9 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         
         // CLLocationManagerをDelegateに指定
         lm.delegate = self
-        
-        // 位置情報取得の許可を求めるメッセージの表示．必須．
         lm.requestAlwaysAuthorization()
-        // 位置情報の精度を指定．任意，
-        lm.desiredAccuracy = kCLLocationAccuracyBest
+//        lm.desiredAccuracy = kCLLocationAccuracyBest
+        lm.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         
         /**
         * GPSとコンパスを取得します。
@@ -131,7 +116,6 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         self.dismissViewControllerAnimated(true , completion: nil)
     }
     
-    
     /* 位置情報取得成功時に実行される関数 */
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation){
         debug("get GPS");
@@ -139,12 +123,11 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         // コンパスに渡す用
         currentLocation = CLLocation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude);
         
-        debug(newLocation);
-        
         // 目標のGPSと現在地との差
         let distanceToGoal = newLocation.distanceFromLocation(goalLocation);
+        debug(distanceToGoal);
         
-        if( distanceToGoal < CORRECT_RANGE){
+        if( distanceToGoal < CORRECT_RANGE){// 目標地点まで到達した
             debug("succeeded to unlock!!!!!!")
             
             //GPSの使用を停止する．
@@ -159,24 +142,17 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             alertController.addAction(defaultAction)
             presentViewController(alertController, animated: true, completion: nil)
             
-        } else {
+        } else {// 目標地点まで到達してない。
             debug("not yet succeeded to unlock");
             
-            // 距離と方向を表示 1000m 以上ならkm表示	
-            debug(distanceToGoal);
+            // 文字色変化
+            textDistance.textColor = getDistanceColor( distanceToGoal );
+            
+            // 距離と方向を表示 1000m 以上ならkm表示
             if(distanceToGoal > 1000){
-                textDistance.textColor = UIColor.blackColor();//文字色変化
                 textDistance.text = String( floor( distanceToGoal / 1000 )) + " km";
             } else {
-                // 文字色変化
-                if ( distanceToGoal <= NEAR_RANGE ){
-                    textDistance.textColor = UIColor.redColor();
-                } else if ( distanceToGoal <= NOT_FAR_RANGE){
-                    textDistance.textColor = UIColor.blueColor();
-                } else {
-                    textDistance.textColor = UIColor.blackColor();
-                }
-                textDistance.text = String( floor( distanceToGoal )) + " m";
+                textDistance.text = String( floor( distanceToGoal ))        + " m";
             }
             
             // 画像を回転
@@ -184,17 +160,14 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             if(!compassCatched){
                 // 現在地からみて目標地点はどちらの方向にあるか計算
                 dirN0 = Double(computeDirectionFromGPS1ToGPS2(
-                    /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
+                /*  startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
                     startLong:    currentLocation.coordinate.longitude,
                     goalLati :    goalLocation   .coordinate.latitude,
                     goalLong :    goalLocation   .coordinate.longitude)
                 );
                 
                 // 画像を回転させる。
-                let angle:CGFloat = CGFloat((-1 * dirN0 * M_PI) / 180.0) // 東西南北の画像を逆回転
-                myRotateView.image = directionImage
-                myRotateView.transform = CGAffineTransformMakeRotation(angle)
-                self.view.addSubview(myRotateView)
+                rotateImage(directionImage, angle: -1 * dirN0 );// 東西南北の画像を逆回転
             }
             
             debug("retrying...");
@@ -217,12 +190,11 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         compassCatched = true;
         
         // 端末の向き更新
-        //        computerHeading = newHeading.magneticHeading;
         computerHeading = newHeading.trueHeading;
         
         // 現在地からみて目標地点はどちらの方向にあるか計算
         dirN0 = Double(computeDirectionFromGPS1ToGPS2(
-            /* startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
+        /*  startLati: */ currentLocation.coordinate.latitude, // よく分からないが、なんかエラーが出るのでここにはラベルつけない。
             startLong:    currentLocation.coordinate.longitude,
             goalLati :    goalLocation   .coordinate.latitude,
             goalLong :    goalLocation   .coordinate.longitude)
@@ -232,21 +204,28 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         goalDirection = ( dirN0 - computerHeading + 360) % 360;
         
         // 画像を回転させる。
-        let angle:CGFloat = CGFloat((goalDirection * M_PI) / 180.0)
-        myRotateView.image = directionImage
-        myRotateView.transform = CGAffineTransformMakeRotation(angle)
-        self.view.addSubview(myRotateView)
-        
+        rotateImage(directionImage, angle: goalDirection);
         // コンパスを再取得。
         lm.startUpdatingHeading()
     }
-    
-    /*位置情報取得失敗時に実行される関数 　多分コンパスも*/
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    /** 文字色取得関数
+     *  距離を渡すと、その距離で表示する距離の文字色を返却します。
+     */
+    func getDistanceColor( distance: Double ) -> UIColor{
+        var textColor = UIColor.blackColor();
+        if ( distance <= NEAR_RANGE ){
+            textColor = UIColor.redColor();
+        } else if ( distance <= NOT_FAR_RANGE){
+            textColor = UIColor.blueColor();
+        }
+        return textColor;
+    }
+    /** 位置情報取得失敗時に実行される関数 　多分コンパスも*/
+    func locationManager( manager: CLLocationManager, didFailWithError error: NSError ) {
         debug("failed to get GPS or heading");
         lm.startUpdatingLocation()
         lm.startUpdatingHeading()
-    }    
+    }
     
     // （緯度１、経度１）、（緯度２、経度２）を渡すと、
     // １から見た２の方向を返します。
@@ -274,17 +253,25 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
             return  directionFromGPS1ToGPS2_deg % 360;
     }
     
+    // 画像回転
+    func rotateImage( image: UIImage, angle: Double ){
+        let rotationAgnle:CGFloat = CGFloat(( angle * M_PI ) / 180.0)
+        myRotateView.image = image
+        myRotateView.transform = CGAffineTransformMakeRotation(rotationAgnle)
+        self.view.addSubview(myRotateView)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     // コンソールログ出力
     func debug(message: NSObject){
-        //print(PAGE_NAME + ": " + String(message));
+        print(PAGE_NAME + ": " + String(message));
     }
     // 特定の部分だけ見たいとき
     func debug2(message: NSObject){
-        print(PAGE_NAME + ": " + String(message));
+        //print(PAGE_NAME + ": " + String(message));
     }
     
 }

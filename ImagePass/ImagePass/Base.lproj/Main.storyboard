@@ -70,7 +70,7 @@
             </objects>
             <point key="canvasLocation" x="440" y="16"/>
         </scene>
-        <!--マッチング中…-->
+        <!--探索中…-->
         <scene sceneID="3ju-Y0-uUp">
             <objects>
                 <viewController id="xVU-8i-Qzk" customClass="ViewController_matching" customModule="ImagePass" customModuleProvider="target" sceneMemberID="viewController">
@@ -83,13 +83,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8Y-v1-cqJ">
-                                <rect key="frame" x="66" y="99" width="234" height="104"/>
+                                <rect key="frame" x="66" y="107" width="234" height="104"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2D-Rk-IH8">
+                                <rect key="frame" x="20" y="78" width="280" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="あと" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofc-gW-JVT">
-                                <rect key="frame" x="32" y="90" width="63" height="35"/>
+                                <rect key="frame" x="27" y="90" width="63" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -97,7 +103,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="マッチング中…" id="tcU-7a-2Mz">
+                    <navigationItem key="navigationItem" title="探索中…" id="tcU-7a-2Mz">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="ceG-iA-FdV">
                             <connections>
                                 <action selector="BackButton:" destination="xVU-8i-Qzk" id="BCP-iy-bRK"/>
@@ -112,6 +118,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="textDistance" destination="j8Y-v1-cqJ" id="ggz-Xk-NxI"/>
+                        <outlet property="textMemoTitle" destination="H2D-Rk-IH8" id="mix-LX-L5a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2w-Ft-nud" userLabel="First Responder" sceneMemberID="firstResponder"/>
