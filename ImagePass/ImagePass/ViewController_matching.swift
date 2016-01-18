@@ -95,8 +95,8 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         self.Closemodal(sender)
     }
     
-    // 仮ボタン　解錠と仮定
-    @IBAction func OpenButton(sender: AnyObject) {
+    // 解錠
+    func OpenButton(sender: AnyObject) {
         // フラグ書き換え
         appdele.updateTargeted(5, update: "0")
         appdele.updateNSUD()

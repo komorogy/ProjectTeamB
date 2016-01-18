@@ -85,10 +85,10 @@ class ViewController_etsuran: UIViewController {
         appdele.clearTargeted()
     }
     
-
-    // もう一回カギをかける デバッグ用につけといた
-    @IBAction func reLock(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)    }
+//
+//    // もう一回カギをかける デバッグ用につけといた
+//    @IBAction func reLock(sender: AnyObject) {
+//        self.navigationController?.popViewControllerAnimated(true)    }
 
 /*
     
