@@ -20,6 +20,14 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     let CORRECT_RANGE = 10.0; // 解錠範囲 メートルで指定できる
     let NOT_FAR_RANGE = 150.0;// 残りの距離を青色で表示する範囲（メートル）
     let NEAR_RANGE    = 50.0; // 残りの距離を赤色で表示する範囲（メートル）
+    // 画像の名前
+    let IMAGE_NAME_LOAD     = "loading.png";
+    let IMAGE_NAME_NORTH    = "north.png";
+    let IMAGE_NAME_EAST     = "east.png";
+    let IMAGE_NAME_SOUTH    = "south.png";
+    let IMAGE_NAME_WEST     = "west.png";
+    let IMAGE_NAME_YAJIRUSI = "yajirushi.png";
+    
     
     // 変数
     var compassCatched  : Bool = false; // コンパスの値が取得できていたらtrue
@@ -38,7 +46,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     
     // 矢印の画像
     var directionImage: UIImage!;
-    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 75, y: 220, width: 200, height: 300))
+    let myRotateView  :UIImageView = UIImageView(frame: CGRect(x: 56, y: 220, width: 200, height: 300))
     
     
     // ラベル
@@ -60,9 +68,10 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         goalDirection = 0.0;
         
         // 画像
-        // 最初は東西南北だけわかる画像
+        // 最初はローディングみたいな画像。
+        // GPSがとれたら東西南北だけわかる画像、
         // コンパスの値が取れたら矢印に変える
-        directionImage = UIImage(named: "sample.png")!
+        directionImage = UIImage(named: IMAGE_NAME_LOAD)!
         myRotateView.contentMode = UIViewContentMode.ScaleAspectFill
         
         // 矢印の表示
@@ -166,8 +175,14 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
                     goalLong :    goalLocation   .coordinate.longitude)
                 );
                 
-                // 画像を回転させる。
-                rotateImage(directionImage, angle: -1 * dirN0 );// 東西南北の画像を逆回転
+                // 方角によって画像を変えます。
+                var imageName = IMAGE_NAME_NORTH;
+                if( dirN0 > 45  && dirN0 <= 135) { imageName = IMAGE_NAME_EAST; }
+                if( dirN0 > 135 && dirN0 <= 225) { imageName = IMAGE_NAME_SOUTH;}
+                if( dirN0 > 225 && dirN0 <= 315) { imageName = IMAGE_NAME_WEST; }
+                
+                directionImage = UIImage(named: imageName)!
+                myRotateView.image = directionImage;
             }
             
             debug("retrying...");
@@ -185,7 +200,7 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         
         // コンパスの値が初めてとれたときは画像を矢印にする
         if(!compassCatched){
-            directionImage = UIImage(named: "yajirushi.png")!
+            directionImage = UIImage(named: IMAGE_NAME_YAJIRUSI)!
         }
         compassCatched = true;
         
