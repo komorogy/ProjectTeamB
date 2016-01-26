@@ -113,6 +113,12 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
         self.Closemodal(sender)
     }
     
+    // エラー発生後、戻る
+    func backAfterError(sender: AnyObject) {
+        self.Closemodal(sender)
+    }
+    
+    
     private func selectObj(){
         if((NSUD.objectForKey(KEY)) != nil){
             memo = NSUD.objectForKey(KEY)?.mutableCopy() as! NSMutableArray;
@@ -238,8 +244,13 @@ class ViewController_matching: UIViewController, CLLocationManagerDelegate  {
     /** 位置情報取得失敗時に実行される関数 　多分コンパスも*/
     func locationManager( manager: CLLocationManager, didFailWithError error: NSError ) {
         debug("failed to get GPS or heading");
-        lm.startUpdatingLocation()
-        lm.startUpdatingHeading()
+        // 画面遷移用のボタン表示
+        let alertController = UIAlertController(title: "エラー発生", message: "エラーが発生しました。", preferredStyle: .Alert)
+        let defaultAction = UIAlertAction(title: "戻る", style: .Default ){
+            action in self.backAfterError(0);
+        }
+        alertController.addAction(defaultAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     // （緯度１、経度１）、（緯度２、経度２）を渡すと、
